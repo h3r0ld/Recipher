@@ -19,6 +19,30 @@ android {
 }
 
 dependencies {
+    //Dagger
+    implementation 'com.google.dagger:dagger:2.11'
+    annotationProcessor "com.google.dagger:dagger-compiler:2.11"
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+
+    //Unit Test - Robolectric
+    //JUnit - JUnit 5 is not supported yet
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.robolectric:robolectric:3.7.1'
+    testImplementation 'org.mockito:mockito-core:2.15.0'
+    testImplementation 'com.google.dagger:dagger:2.11'
+    testAnnotationProcessor "com.google.dagger:dagger-compiler:2.11"
+    testCompileOnly 'javax.annotation:jsr250-api:1.0'
+
+    //Android Test - Espresso
+    androidTestImplementation 'org.mockito:mockito-core:2.15.0'
+    androidTestImplementation 'com.android.support:support-annotations:26.1.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test:rules:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.google.dagger:dagger:2.11'
+    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:2.11"
+    androidTestCompileOnly 'javax.annotation:jsr250-api:1.0'
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
