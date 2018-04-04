@@ -19,7 +19,7 @@ import hu.herold.mobsoft.recipher.ui.recipes.RecipesPresenter;
 public class RecipeDetailsFragment extends Fragment implements RecipeDetailsScreen {
 
     @Inject
-    private RecipeDetailsPresenter recipeDetailsPresenter;
+    RecipeDetailsPresenter recipeDetailsPresenter;
 
     public RecipeDetailsFragment() {
         // Required empty public constructor

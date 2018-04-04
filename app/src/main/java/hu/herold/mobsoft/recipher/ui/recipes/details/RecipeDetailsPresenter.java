@@ -13,7 +13,7 @@ import hu.herold.mobsoft.recipher.ui.Presenter;
 public class RecipeDetailsPresenter extends Presenter<RecipeDetailsScreen> {
 
     @Inject
-    private FavouritesInteractor favouritesInteractor;
+    FavouritesInteractor favouritesInteractor;
 
     public void saveFavouriteRecipe(Recipe recipe) {
 
