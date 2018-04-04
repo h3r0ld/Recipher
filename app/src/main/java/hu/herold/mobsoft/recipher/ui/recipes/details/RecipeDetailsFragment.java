@@ -1,4 +1,5 @@
-package hu.herold.mobsoft.recipher.ui.favourites;
+package hu.herold.mobsoft.recipher.ui.recipes.details;
+
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,50 +8,52 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import hu.herold.mobsoft.recipher.R;
-import hu.herold.mobsoft.recipher.RecipherApplication;
-import hu.herold.mobsoft.recipher.model.Recipe;
+import hu.herold.mobsoft.recipher.ui.recipes.RecipesPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FavouritesFragment extends Fragment implements FavouritesScreen {
+public class RecipeDetailsFragment extends Fragment implements RecipeDetailsScreen {
 
     @Inject
-    private FavouritesPresenter favouritesPresenter;
+    private RecipeDetailsPresenter recipeDetailsPresenter;
 
-    public FavouritesFragment() {
+    public RecipeDetailsFragment() {
         // Required empty public constructor
-        RecipherApplication.injector.inject(this);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourites, container, false);
+        return inflater.inflate(R.layout.fragment_recipe_details, container, false);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        favouritesPresenter.attachScreen(this);
+        recipeDetailsPresenter.attachScreen(this);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
 
-        favouritesPresenter.detachScreen();
+        recipeDetailsPresenter.detachScreen();
     }
 
     @Override
-    public void showFavouriteRecipes(List<Recipe> recipes) {
+    public void savedFavouriteRecipe() {
+
+    }
+
+    @Override
+    public void deletedFavouriteRecipe() {
 
     }
 }

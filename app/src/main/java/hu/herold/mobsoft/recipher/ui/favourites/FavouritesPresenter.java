@@ -1,5 +1,10 @@
 package hu.herold.mobsoft.recipher.ui.favourites;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
+import hu.herold.mobsoft.recipher.interactor.favourites.FavouritesInteractor;
 import hu.herold.mobsoft.recipher.ui.Presenter;
 
 /**
@@ -7,4 +12,11 @@ import hu.herold.mobsoft.recipher.ui.Presenter;
  */
 
 public class FavouritesPresenter extends Presenter<FavouritesScreen> {
+
+    @Inject
+    private FavouritesInteractor favouritesInteractor;
+
+    public void refreshFavouriteRecipes(String title, List<String> ingredients) {
+
+    }
 }
