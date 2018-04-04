@@ -22,7 +22,7 @@ import hu.herold.mobsoft.recipher.model.Recipe;
 public class RecipesFragment extends Fragment implements RecipesScreen {
 
     @Inject
-    private RecipesPresenter recipesPresenter;
+    RecipesPresenter recipesPresenter;
 
     public RecipesFragment() {
         // Required empty public constructor

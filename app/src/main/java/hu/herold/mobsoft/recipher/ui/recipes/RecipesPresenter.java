@@ -12,7 +12,7 @@ import hu.herold.mobsoft.recipher.ui.Presenter;
 public class RecipesPresenter extends Presenter<RecipesScreen> {
 
     @Inject
-    private RecipesInteractor recipesInteractor;
+    RecipesInteractor recipesInteractor;
 
 
     public void refreshRecipes() {

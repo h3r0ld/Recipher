@@ -21,7 +21,7 @@ import hu.herold.mobsoft.recipher.model.Recipe;
 public class FavouritesFragment extends Fragment implements FavouritesScreen {
 
     @Inject
-    private FavouritesPresenter favouritesPresenter;
+    FavouritesPresenter favouritesPresenter;
 
     public FavouritesFragment() {
         // Required empty public constructor

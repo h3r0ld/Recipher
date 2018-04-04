@@ -14,7 +14,7 @@ import hu.herold.mobsoft.recipher.ui.Presenter;
 public class FavouritesPresenter extends Presenter<FavouritesScreen> {
 
     @Inject
-    private FavouritesInteractor favouritesInteractor;
+    FavouritesInteractor favouritesInteractor;
 
     public void refreshFavouriteRecipes(String title, List<String> ingredients) {
 
