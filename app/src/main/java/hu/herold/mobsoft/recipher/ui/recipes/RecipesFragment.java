@@ -8,10 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
+import hu.herold.mobsoft.recipher.model.Recipe;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,7 +22,7 @@ import hu.herold.mobsoft.recipher.RecipherApplication;
 public class RecipesFragment extends Fragment implements RecipesScreen {
 
     @Inject
-    RecipesPresenter recipesPresenter;
+    private RecipesPresenter recipesPresenter;
 
     public RecipesFragment() {
         // Required empty public constructor
@@ -46,5 +49,15 @@ public class RecipesFragment extends Fragment implements RecipesScreen {
         super.onDetach();
 
         recipesPresenter.detachScreen();
+    }
+
+    @Override
+    public void showRecipes(List<Recipe> recipes) {
+
+    }
+
+    @Override
+    public void showNetworkError(String errorMsg) {
+
     }
 }
