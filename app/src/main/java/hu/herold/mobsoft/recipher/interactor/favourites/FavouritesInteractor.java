@@ -14,12 +14,4 @@ public class FavouritesInteractor {
     {
 
     }
-
-    public void saveRecipe(Recipe recipe) {
-
-    }
-
-    public void deleteRecipe(long id) {
-
-    }
 }
