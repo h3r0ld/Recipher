@@ -16,6 +16,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
+}
+
+ext {
+    okhttp_version = "3.0.1"
+    oltu_version = "1.0.0"
+    retrofit_version = "2.0.0-beta3"
+    gson_version = "2.4"
+    swagger_annotations_version = "1.5.0"
+    junit_version = "4.12"
 }
 
 dependencies {
@@ -24,6 +36,14 @@ dependencies {
     implementation 'com.android.support:support-v4:26.1.0'
     annotationProcessor "com.google.dagger:dagger-compiler:2.11"
     compileOnly 'javax.annotation:jsr250-api:1.0'
+
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.google.code.gson:gson:$gson_version"
+    implementation "io.swagger:swagger-annotations:$swagger_annotations_version"
+    implementation "org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:$oltu_version"
+
 
     //Unit Test - Robolectric
     //JUnit - JUnit 5 is not supported yet

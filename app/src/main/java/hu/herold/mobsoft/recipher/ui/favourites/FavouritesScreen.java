@@ -2,7 +2,8 @@ package hu.herold.mobsoft.recipher.ui.favourites;
 
 import java.util.List;
 
-import hu.herold.mobsoft.recipher.model.Recipe;
+import hu.herold.mobsoft.recipher.model.RecipeEntity;
+
 
 /**
  * Created by herold on 2018. 03. 23..
@@ -10,5 +11,5 @@ import hu.herold.mobsoft.recipher.model.Recipe;
 
 public interface FavouritesScreen {
 
-    void showFavouriteRecipes(List<Recipe> recipes);
+    void showFavouriteRecipes(List<RecipeEntity> recipes);
 }
