@@ -1,0 +1,107 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: Food2Fork
+  description: Meal recipes Api
+host: food2fork.com
+schemes: 
+  - http
+basePath: /api
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    in: query
+    name: key
+security: 
+  - ApiKeyAuth: []
+paths:
+  /search:
+    get:
+      operationId: 'searchRecipes'
+      tags:
+        - 'Recipe'
+      summary: 'Search recipes.'
+      parameters:
+        - in: query
+          name: q
+          description: 'Search Query (Ingredients should be                    separated by commas). If this is omitted               top rated recipes will be returned'
+          type: string
+          required: false
+        - in: query
+          name: sort
+          description: 'How the results should be sorted. "r" - by rating, "t" - by trendingness.'
+          type: string
+          required: false
+        - in: query
+          name: page
+          description: 'Used to get additional results.'
+          type: integer
+          required: false
+      responses:
+        200:
+          description: 'Request was successful.'
+          schema:
+            $ref: '#/definitions/SearchRespone'
+  /get:
+    get:
+      tags:
+        - 'Recipe'
+      summary: 'Get a recipe by id.'
+      parameters: 
+        - in: query
+          name: rId
+          description: 'Id of desired recipe as returned by Search             Query'
+          type: string
+          required: true
+      responses:
+        200:
+          description: 'Request was successful.'
+          schema:
+            $ref: '#/definitions/Recipe'
+definitions:
+  Recipe:
+    description: 'Full recipe.'
+    type: object
+    required: 
+      - recipe_id
+    properties:
+      recipe_id:
+        description: 'The ID of the recipe.'
+        type: string
+      f2f_url:
+        description: 'Url of the recipe on Food2Fork.com'
+        type: string
+      image_url:
+        description: 'URL of the image'
+        type: string
+      ingredients:
+        description: 'The ingredients of this recipe'
+        type: array
+        items:
+          type: string
+      publisher:
+        description: 'Name of the Publisher'
+        type: string
+      publisher_url:
+        description: 'Base url of the publisher'
+        type: string
+      social_rank:
+        description: 'The Social Ranking of the Recipe (As determined by the F2F Ranking Algorithm)'
+        type: number
+        format: double
+      source_url:
+        description: "Original Url of the recipe on the publisher's site"  
+        type: string
+      title:
+        description: 'Title of the recipe'
+        type: string
+  SearchRespone:
+    type: object
+    properties:
+      count:
+        type: integer
+        format: int64
+      recipes:
+        type: array
+        items:
+          $ref: '#/definitions/Recipe'
