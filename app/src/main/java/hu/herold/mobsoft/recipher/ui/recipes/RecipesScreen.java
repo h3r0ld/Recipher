@@ -2,7 +2,7 @@ package hu.herold.mobsoft.recipher.ui.recipes;
 
 import java.util.List;
 
-import hu.herold.mobsoft.recipher.model.Recipe;
+import hu.herold.mobsoft.recipher.client.model.Recipe;
 
 /**
  * Created by herold on 2018. 03. 23..
