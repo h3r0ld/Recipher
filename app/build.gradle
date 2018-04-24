@@ -44,6 +44,9 @@ dependencies {
     implementation "io.swagger:swagger-annotations:$swagger_annotations_version"
     implementation "org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:$oltu_version"
 
+    // Room (use 1.1.0-beta3 for latest beta)
+    implementation "android.arch.persistence.room:runtime:1.0.0"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 
     //Unit Test - Robolectric
     //JUnit - JUnit 5 is not supported yet
