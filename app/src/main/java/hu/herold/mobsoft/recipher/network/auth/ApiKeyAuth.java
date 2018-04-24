@@ -1,4 +1,4 @@
-package hu.herold.mobsoft.recipher.client.auth;
+package hu.herold.mobsoft.recipher.network.auth;
 
 import java.io.IOException;
 import java.net.URI;

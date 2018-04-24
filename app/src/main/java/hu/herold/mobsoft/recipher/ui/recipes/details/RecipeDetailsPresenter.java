@@ -2,7 +2,7 @@ package hu.herold.mobsoft.recipher.ui.recipes.details;
 
 import javax.inject.Inject;
 
-import hu.herold.mobsoft.recipher.client.model.Recipe;
+import hu.herold.mobsoft.recipher.network.model.Recipe;
 import hu.herold.mobsoft.recipher.interactor.recipes.RecipesInteractor;
 import hu.herold.mobsoft.recipher.ui.Presenter;
 

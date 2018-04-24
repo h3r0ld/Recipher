@@ -1,7 +1,7 @@
-package hu.herold.mobsoft.recipher.client.api;
+package hu.herold.mobsoft.recipher.network.api;
 
-import hu.herold.mobsoft.recipher.client.model.Recipe;
-import hu.herold.mobsoft.recipher.client.model.SearchResponse;
+import hu.herold.mobsoft.recipher.network.model.Recipe;
+import hu.herold.mobsoft.recipher.network.model.SearchResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

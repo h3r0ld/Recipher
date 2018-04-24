@@ -1,4 +1,4 @@
-package hu.herold.mobsoft.recipher.client.model;
+package hu.herold.mobsoft.recipher.network.model;
 
 import java.util.Objects;
 import io.swagger.annotations.ApiModel;

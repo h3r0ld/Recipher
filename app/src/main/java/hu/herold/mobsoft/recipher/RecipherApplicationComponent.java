@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import hu.herold.mobsoft.recipher.db.DbModule;
 import hu.herold.mobsoft.recipher.interactor.InteractorModule;
+import hu.herold.mobsoft.recipher.network.NetworkModule;
 import hu.herold.mobsoft.recipher.repository.RecipeDataSource;
 import hu.herold.mobsoft.recipher.ui.UIModule;
 import hu.herold.mobsoft.recipher.ui.about.AboutFragment;
@@ -18,7 +19,7 @@ import hu.herold.mobsoft.recipher.ui.recipes.RecipesFragment;
  */
 
 @Singleton
-@Component(modules = {UIModule.class, DbModule.class, InteractorModule.class, })
+@Component(modules = {UIModule.class, DbModule.class, InteractorModule.class, NetworkModule.class})
 public interface RecipherApplicationComponent {
 
     void inject(MainActivity mainActivity);

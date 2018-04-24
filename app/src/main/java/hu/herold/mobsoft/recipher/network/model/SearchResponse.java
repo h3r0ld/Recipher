@@ -1,4 +1,4 @@
-package hu.herold.mobsoft.recipher.client.model;
+package hu.herold.mobsoft.recipher.network.model;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;

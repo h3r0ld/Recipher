@@ -25,7 +25,7 @@ public interface RecipeDao {
     List<RecipeEntity> getRecipeById(String recipeId);
 
     @Insert
-    void saveRecipe(RecipeEntity recipeEntity);
+    void saveRecipe(RecipeEntity... recipeEntity);
 
     @Delete
     void deleteRecipe(RecipeEntity recipeEntity);
