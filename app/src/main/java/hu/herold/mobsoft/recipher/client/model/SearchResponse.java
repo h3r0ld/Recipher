@@ -1,5 +1,8 @@
 package hu.herold.mobsoft.recipher.client.model;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import java.util.Objects;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -45,6 +48,7 @@ public class SearchResponse   {
 
   
 
+  @RequiresApi(api = Build.VERSION_CODES.KITKAT)
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -58,6 +62,7 @@ public class SearchResponse   {
         Objects.equals(recipes, searchResponse.recipes);
   }
 
+  @RequiresApi(api = Build.VERSION_CODES.KITKAT)
   @Override
   public int hashCode() {
     return Objects.hash(count, recipes);

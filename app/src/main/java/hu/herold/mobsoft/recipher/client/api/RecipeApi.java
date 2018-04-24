@@ -1,17 +1,10 @@
 package hu.herold.mobsoft.recipher.client.api;
 
-
 import hu.herold.mobsoft.recipher.client.model.Recipe;
 import hu.herold.mobsoft.recipher.client.model.SearchResponse;
 import retrofit2.Call;
-import retrofit2.http.*;
-
-import okhttp3.RequestBody;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface RecipeApi {
   
@@ -23,8 +16,8 @@ public interface RecipeApi {
    */
   
   @GET("get")
-  Call<Recipe> getGet(
-          @Query("rId") String rId
+  Call<Recipe> getRecipeById(
+    @Query("rId") String rId
   );
 
   
@@ -39,7 +32,7 @@ public interface RecipeApi {
   
   @GET("search")
   Call<SearchResponse> searchRecipes(
-          @Query("q") String q, @Query("sort") String sort, @Query("page") Integer page
+    @Query("q") String q, @Query("sort") String sort, @Query("page") Integer page
   );
 
   
