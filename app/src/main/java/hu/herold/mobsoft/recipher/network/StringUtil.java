@@ -1,4 +1,4 @@
-package hu.herold.mobsoft.recipher.client;
+package hu.herold.mobsoft.recipher.network;
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2018-04-24T09:28:44.807+02:00")
 public class StringUtil {

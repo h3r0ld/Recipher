@@ -1,4 +1,4 @@
-package hu.herold.mobsoft.recipher.client;
+package hu.herold.mobsoft.recipher.network;
 
 import java.util.Arrays;
 import java.util.List;
