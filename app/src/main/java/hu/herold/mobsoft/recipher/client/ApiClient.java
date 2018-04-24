@@ -1,30 +1,28 @@
 package hu.herold.mobsoft.recipher.client;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParseException;
 
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest.AuthenticationRequestBuilder;
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest.TokenRequestBuilder;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import hu.herold.mobsoft.recipher.client.auth.ApiKeyAuth;
 import hu.herold.mobsoft.recipher.client.auth.HttpBasicAuth;
 import hu.herold.mobsoft.recipher.client.auth.OAuth;
-import retrofit2.Converter;
-import retrofit2.Retrofit;
-import retrofit2.GsonConverterFactory;
-
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParseException;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.Converter;
+import retrofit2.GsonConverterFactory;
+import retrofit2.Retrofit;
 
 
 public class ApiClient {
