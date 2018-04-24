@@ -14,7 +14,6 @@ import javax.inject.Inject;
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.client.model.Recipe;
-import hu.herold.mobsoft.recipher.model.RecipeEntity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,7 +50,7 @@ public class FavouritesFragment extends Fragment implements FavouritesScreen {
     }
 
     @Override
-    public void showFavouriteRecipes(List<RecipeEntity> recipes) {
+    public void showFavouriteRecipes(List<Recipe> recipes) {
 
     }
 }
