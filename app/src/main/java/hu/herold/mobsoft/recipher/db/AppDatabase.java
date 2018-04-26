@@ -12,7 +12,7 @@ import hu.herold.mobsoft.recipher.db.entity.RecipeEntity;
  * Created by herold on 2018. 04. 24..
  */
 
-@Database(entities = {RecipeEntity.class}, version = 1)
+@Database(entities = {RecipeEntity.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
