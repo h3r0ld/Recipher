@@ -1,5 +1,6 @@
 package hu.herold.mobsoft.recipher;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import hu.herold.mobsoft.recipher.network.ApiClient;
@@ -14,6 +15,7 @@ import retrofit2.Response;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+    @Ignore
     @Test
     public void addition_isCorrect() throws Exception {
         ApiClient apiClient = new ApiClient(System.getenv("FOOD2FORK_API_KEY"));
