@@ -2,9 +2,8 @@ package hu.herold.mobsoft.recipher.ui.recipes.details;
 
 import javax.inject.Inject;
 
-import hu.herold.mobsoft.recipher.interactor.favourites.FavouritesInteractor;
-import hu.herold.mobsoft.recipher.interactor.recipes.details.RecipeDetailsInteractor;
-import hu.herold.mobsoft.recipher.model.Recipe;
+import hu.herold.mobsoft.recipher.network.model.Recipe;
+import hu.herold.mobsoft.recipher.interactor.recipes.RecipesInteractor;
 import hu.herold.mobsoft.recipher.ui.Presenter;
 
 /**
@@ -14,7 +13,7 @@ import hu.herold.mobsoft.recipher.ui.Presenter;
 public class RecipeDetailsPresenter extends Presenter<RecipeDetailsScreen> {
 
     @Inject
-    RecipeDetailsInteractor recipeDetailsInteractor;
+    RecipesInteractor recipeInteractor;
 
     public void saveFavouriteRecipe(Recipe recipe) {
 

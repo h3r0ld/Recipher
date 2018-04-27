@@ -13,7 +13,7 @@ import javax.inject.Inject;
 
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
-import hu.herold.mobsoft.recipher.model.Recipe;
+import hu.herold.mobsoft.recipher.network.model.Recipe;
 
 /**
  * A simple {@link Fragment} subclass.

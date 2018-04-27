@@ -2,6 +2,7 @@ package hu.herold.mobsoft.recipher;
 
 import android.app.Application;
 
+import hu.herold.mobsoft.recipher.db.DbModule;
 import hu.herold.mobsoft.recipher.ui.UIModule;
 
 /**
@@ -16,7 +17,10 @@ public class RecipherApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        injector = DaggerRecipherApplicationComponent.builder().uIModule(new UIModule(this)).build();
+        injector = DaggerRecipherApplicationComponent.builder()
+                .uIModule(new UIModule(this))
+                .dbModule(new DbModule(this))
+                .build();
     }
 
 }
