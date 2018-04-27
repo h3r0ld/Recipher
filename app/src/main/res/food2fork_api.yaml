@@ -24,7 +24,7 @@ paths:
       parameters:
         - in: query
           name: q
-          description: 'Search Query (Ingredients should be                    separated by commas). If this is omitted               top rated recipes will be returned'
+          description: 'Search Query (Ingredients should be separated by commas). If this is omitted top rated recipes will be returned'
           type: string
           required: false
         - in: query
@@ -51,7 +51,7 @@ paths:
       parameters: 
         - in: query
           name: rId
-          description: 'Id of desired recipe as returned by Search             Query'
+          description: 'Id of desired recipe as returned by Search Query'
           type: string
           required: true
       responses:
