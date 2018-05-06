@@ -7,4 +7,7 @@
     <string name="favouritesTitle">Favourites</string>
     <string name="recipeDetailsTitle">Recipe Details</string>
     <string name="recipesTitle">Recipes</string>
+    <string name="aboutYear">2018 ©</string>
+    <string name="aboutAllrights">All rigths reserved.</string>
+    <string name="aboutVersion">Application version v1.0</string>
 </resources>
