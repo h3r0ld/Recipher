@@ -1,13 +1,44 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="hu.herold.mobsoft.recipher.ui.about.AboutFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/aboutImage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/aboutTitle" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@id/aboutVersionTV"
+        android:paddingVertical="@dimen/activity_vertical_margin"
+        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+        android:src="@drawable/about_image"
+        />
 
-</FrameLayout>
+
+    <TextView
+        android:id="@+id/aboutVersionTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/aboutAllRightsTV"
+        android:textAlignment="center"
+        android:text="@string/aboutVersion"/>
+
+    <TextView
+        android:id="@+id/aboutAllRightsTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
+        android:text="@string/aboutAllrights"/>
+
+    <TextView
+        android:id="@+id/aboutYearTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/aboutAllRightsTV"
+        android:textAlignment="center"
+        android:text="@string/aboutYear"/>
+
+</RelativeLayout>
+
+
