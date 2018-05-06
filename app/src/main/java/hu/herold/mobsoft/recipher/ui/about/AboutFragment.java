@@ -22,7 +22,6 @@ public class AboutFragment extends Fragment implements AboutScreen {
     AboutPresenter aboutPresenter;
 
     public AboutFragment() {
-        // Required empty public constructor
         RecipherApplication.injector.inject(this);
     }
 
@@ -37,6 +36,8 @@ public class AboutFragment extends Fragment implements AboutScreen {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+        String env = System.getenv("FOOD2FORK_API_KEY");
 
         aboutPresenter.attachScreen(this);
     }
