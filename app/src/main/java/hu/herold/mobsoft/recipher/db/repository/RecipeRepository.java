@@ -15,9 +15,9 @@ public interface RecipeRepository {
 
     RecipeEntity getRecipeById(String id);
 
-    void addNewRecipe(Recipe recipe, boolean isEncrypted);
-
-    void updateRecipe(RecipeEntity recipeEntity);
+    void saveRecipe(Recipe recipe);
 
     void deleteRecipe(RecipeEntity recipeEntity);
+
+    void deleteRecipeById(String id);
 }
