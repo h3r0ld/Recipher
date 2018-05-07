@@ -7,12 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +43,8 @@ public class RecipesFragment extends Fragment implements RecipesScreen {
     TextView emptyTextView;
     @BindView(R.id.recipeSwipeRefreshLayout)
     SwipeRefreshLayout recipeSwipeRefreshLayout;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     Unbinder unbinder;
 
@@ -70,7 +71,7 @@ public class RecipesFragment extends Fragment implements RecipesScreen {
 
         recipeList = new ArrayList();
 
-        recipesAdapter = new RecipesAdapter(getContext(), recipeList);
+        recipesAdapter = new RecipesAdapter(getActivity(), recipeList);
         recipeRecyclerView.setAdapter(recipesAdapter);
 
         recipeSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -100,18 +101,21 @@ public class RecipesFragment extends Fragment implements RecipesScreen {
     public void onResume() {
         super.onResume();
         recipeFilter = recipeEditText.getText().toString();
+        progressBar.setVisibility(View.VISIBLE);
         recipesPresenter.refreshRecipes(recipeFilter);
     }
 
     @Override
     public void showRecipes(List<Recipe> recipes) {
-        if (recipeSwipeRefreshLayout  != null) {
+        if (recipeSwipeRefreshLayout != null) {
             recipeSwipeRefreshLayout.setRefreshing(false);
         }
 
         recipeList.clear();
         recipeList.addAll(recipes);
         recipesAdapter.notifyDataSetChanged();
+
+        progressBar.setVisibility(View.GONE);
 
         if (recipeList.isEmpty()) {
             recipeRecyclerView.setVisibility(View.GONE);

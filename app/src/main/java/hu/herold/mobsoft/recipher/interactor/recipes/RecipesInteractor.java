@@ -5,7 +5,10 @@ import org.greenrobot.eventbus.EventBus;
 import javax.inject.Inject;
 
 import hu.herold.mobsoft.recipher.RecipherApplication;
+import hu.herold.mobsoft.recipher.interactor.recipes.event.DeleteRecipeEvent;
+import hu.herold.mobsoft.recipher.interactor.recipes.event.GetRecipeDetailsEvent;
 import hu.herold.mobsoft.recipher.interactor.recipes.event.GetRecipesEvent;
+import hu.herold.mobsoft.recipher.interactor.recipes.event.SaveRecipeEvent;
 import hu.herold.mobsoft.recipher.network.api.RecipeApi;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
 import hu.herold.mobsoft.recipher.db.repository.RecipeRepository;
@@ -49,15 +52,48 @@ public class RecipesInteractor {
         }
     }
 
-    public  void getRecipeDetails(long id) {
+    public  void getRecipeDetails(String id) {
+        Call<Recipe> recipeByIdCall = recipeApi.getRecipeById(id);
 
+        GetRecipeDetailsEvent event = new GetRecipeDetailsEvent();
+        try {
+            Response<Recipe> recipeResponse = recipeByIdCall.execute();
+
+            if (recipeResponse.code() != 200) {
+                throw new Exception("Result code is not 200, code is: " + recipeResponse.code());
+            }
+
+            event.setCode(recipeResponse.code());
+            event.setRecipe(recipeResponse.body());
+        } catch (Exception e) {
+            event.setThrowable(e);
+        } finally {
+            EventBus.getDefault().post(event);
+        }
     }
 
     public void saveRecipe(Recipe recipe) {
 
+        SaveRecipeEvent event = new SaveRecipeEvent();
+
+        try {
+            recipeRepository.saveRecipe(recipe);
+        } catch (Exception e) {
+            event.setThrowable(e);
+        } finally {
+            EventBus.getDefault().post(event);
+        }
     }
 
-    public void deleteRecipe(long id) {
+    public void deleteRecipe(String id) {
+        DeleteRecipeEvent event = new DeleteRecipeEvent();
 
+        try {
+            recipeRepository.deleteRecipeById(id);
+        } catch (Exception e) {
+            event.setThrowable(e);
+        } finally {
+            EventBus.getDefault().post(event);
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.RoomWarnings;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -18,15 +19,21 @@ import hu.herold.mobsoft.recipher.db.entity.RecipeEntity;
 public interface RecipeDao {
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    @Query("SELECT recipeId, title, imageUrl, socialRank, isEncrypted FROM recipes")
+    @Query("SELECT recipeId, title, imageUrl, socialRank, isEncrypted FROM RECIPES")
     List<RecipeEntity> getRecipes();
 
     @Query("SELECT * FROM recipes WHERE :recipeId = recipeId")
-    List<RecipeEntity> getRecipeById(String recipeId);
+    RecipeEntity getRecipeById(String recipeId);
 
     @Insert
     void saveRecipe(RecipeEntity... recipeEntity);
 
+    @Update
+    void updateRecipe(RecipeEntity recipeEntity);
+
     @Delete
     void deleteRecipe(RecipeEntity recipeEntity);
+
+    @Query("DELETE FROM RECIPES WHERE :id = recipeId")
+    void deleteRecipeById(String id);
 }

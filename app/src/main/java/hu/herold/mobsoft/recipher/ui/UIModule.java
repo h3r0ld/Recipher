@@ -10,6 +10,7 @@ import hu.herold.mobsoft.recipher.ui.about.AboutPresenter;
 import hu.herold.mobsoft.recipher.ui.favourites.FavouritesPresenter;
 import hu.herold.mobsoft.recipher.ui.main.MainPresenter;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesPresenter;
+import hu.herold.mobsoft.recipher.ui.recipes.details.RecipeDetailsPresenter;
 
 /**
  * Created by herold on 2018. 03. 23..
@@ -38,6 +39,12 @@ public class UIModule {
     @Singleton
     public RecipesPresenter provideRecipesPresenter() {
         return new RecipesPresenter();
+    }
+
+    @Provides
+    @Singleton
+    public RecipeDetailsPresenter provideRecipeDetailsPresenter() {
+        return new RecipeDetailsPresenter();
     }
 
     @Provides

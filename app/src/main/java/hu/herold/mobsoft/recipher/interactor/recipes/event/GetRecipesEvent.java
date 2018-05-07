@@ -2,17 +2,16 @@ package hu.herold.mobsoft.recipher.interactor.recipes.event;
 
 import java.util.List;
 
+import hu.herold.mobsoft.recipher.interactor.base.EventBase;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
 
 /**
  * Created by herold on 2018. 05. 06..
  */
 
-public class GetRecipesEvent {
+public class GetRecipesEvent extends EventBase {
 
-    private int code;
     private List<Recipe> recipes;
-    private Throwable throwable;
 
     public GetRecipesEvent() {}
 
@@ -22,27 +21,11 @@ public class GetRecipesEvent {
         this.throwable = throwable;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
     public List<Recipe> getRecipes() {
         return recipes;
     }
 
     public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
-    }
-
-    public Throwable getThrowable() {
-        return throwable;
-    }
-
-    public void setThrowable(Throwable throwable) {
-        this.throwable = throwable;
     }
 }
