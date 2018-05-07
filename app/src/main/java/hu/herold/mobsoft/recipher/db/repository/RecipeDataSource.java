@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.db.dao.RecipeDao;
 import hu.herold.mobsoft.recipher.db.entity.RecipeEntity;
+import hu.herold.mobsoft.recipher.db.mapper.Mapper;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
 
 /**
@@ -24,26 +25,36 @@ public class RecipeDataSource implements RecipeRepository {
 
     @Override
     public List<RecipeEntity> getRecipes(String filter) {
-        return null;
+        return recipeDao.getRecipes();
     }
 
     @Override
     public RecipeEntity getRecipeById(String id) {
-        return null;
+        return recipeDao.getRecipeById(id);
     }
 
     @Override
-    public void addNewRecipe(Recipe recipe, boolean isEncrypted) {
+    public void saveRecipe(Recipe recipe) {
+        RecipeEntity recipeEntity = getRecipeById(recipe.getRecipeId());
 
-    }
+        if (recipeEntity != null) {
+            recipeEntity = Mapper.mapRecipeEntity(recipe);
+            recipeDao.updateRecipe(recipeEntity);
+        } else {
+            recipeEntity = Mapper.mapRecipeEntity(recipe);
+            recipeDao.saveRecipe(recipeEntity);
+        }
 
-    @Override
-    public void updateRecipe(RecipeEntity recipeEntity) {
-
+        recipeDao.saveRecipe(recipeEntity);
     }
 
     @Override
     public void deleteRecipe(RecipeEntity recipeEntity) {
+        recipeDao.deleteRecipe(recipeEntity);
+    }
 
+    @Override
+    public void deleteRecipeById(String id) {
+        recipeDao.deleteRecipeById(id);
     }
 }

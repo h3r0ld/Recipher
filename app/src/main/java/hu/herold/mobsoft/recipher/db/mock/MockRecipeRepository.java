@@ -11,6 +11,7 @@ import hu.herold.mobsoft.recipher.network.model.Recipe;
  */
 
 public class MockRecipeRepository implements RecipeRepository {
+
     @Override
     public List<RecipeEntity> getRecipes(String filter) {
         return null;
@@ -22,17 +23,17 @@ public class MockRecipeRepository implements RecipeRepository {
     }
 
     @Override
-    public void addNewRecipe(Recipe recipe, boolean isEncrypted) {
-
-    }
-
-    @Override
-    public void updateRecipe(RecipeEntity recipeEntity) {
+    public void saveRecipe(Recipe recipe) {
 
     }
 
     @Override
     public void deleteRecipe(RecipeEntity recipeEntity) {
+
+    }
+
+    @Override
+    public void deleteRecipeById(String id) {
 
     }
 }
