@@ -34,6 +34,11 @@ public class RecipeDataSource implements RecipeRepository {
     }
 
     @Override
+    public List<String> getRecipeIds() {
+        return recipeDao.getRecipeIds();
+    }
+
+    @Override
     public void saveRecipe(Recipe recipe) {
         RecipeEntity recipeEntity = getRecipeById(recipe.getRecipeId());
 

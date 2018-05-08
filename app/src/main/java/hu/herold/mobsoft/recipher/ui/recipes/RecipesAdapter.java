@@ -2,6 +2,8 @@ package hu.herold.mobsoft.recipher.ui.recipes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -54,6 +56,19 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
         holder.nameTV.setText(recipe.getTitle());
         holder.scoreTV.setText(recipe.getSocialRank().toString());
+
+        Drawable icon = null;
+
+        if (recipe.getFavourite()) {
+            icon = context.getResources().getDrawable(R.drawable.ic_star_white_18dp);
+            int color = context.getResources().getColor(R.color.star_filled);
+            holder.favouriteIconImageView.setColorFilter(color);
+
+        } else {
+            icon = context.getResources().getDrawable(R.drawable.ic_star_border_black_18dp);
+        }
+
+        holder.favouriteIconImageView.setImageDrawable(icon);
     }
 
     @Override
@@ -71,6 +86,8 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
         TextView nameTV;
         @BindView(R.id.scoreTV)
         TextView scoreTV;
+        @BindView(R.id.favouriteIconImageView)
+        ImageView favouriteIconImageView;
 
         private Recipe recipe;
 

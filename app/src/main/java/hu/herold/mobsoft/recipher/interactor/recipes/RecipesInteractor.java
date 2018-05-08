@@ -2,6 +2,8 @@ package hu.herold.mobsoft.recipher.interactor.recipes;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import hu.herold.mobsoft.recipher.RecipherApplication;
@@ -42,6 +44,12 @@ public class RecipesInteractor {
 
             if (searchResponse.code() != 200) {
                 throw new Exception("Result code is not 200:  " + searchResponse.code());
+            }
+
+            List<String> recipeIds = recipeRepository.getRecipeIds();
+
+            for (Recipe recipe : searchResponse.body().getRecipes()) {
+                recipe.setFavourite(recipeIds.contains(recipe.getRecipeId()));
             }
 
             event.setCode(searchResponse.code());

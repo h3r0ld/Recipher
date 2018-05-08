@@ -13,6 +13,8 @@ public interface RecipeRepository {
 
     List<RecipeEntity> getRecipes(String filter);
 
+    List<String> getRecipeIds();
+
     RecipeEntity getRecipeById(String id);
 
     void saveRecipe(Recipe recipe);
