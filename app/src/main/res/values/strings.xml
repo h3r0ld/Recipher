@@ -13,4 +13,9 @@
     <string name="noData">No recipes found.</string>
     <string name="socialScore">Social score:</string>
     <string name="AddToFavourites">Add to favourites</string>
+    <string name="encryptionTitle">Encryption</string>
+    <string name="encryptionText">If you want to protect this recipe with a password, write below. If no, then just leave it empty.</string>
+    <string name="save">Save</string>
+    <string name="exit">Cancel</string>
+    <string name="RemoveFromFavourites">Remove from favourites</string>
 </resources>

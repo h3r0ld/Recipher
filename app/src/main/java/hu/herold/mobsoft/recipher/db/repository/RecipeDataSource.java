@@ -49,8 +49,6 @@ public class RecipeDataSource implements RecipeRepository {
             recipeEntity = Mapper.mapRecipeEntity(recipe);
             recipeDao.saveRecipe(recipeEntity);
         }
-
-        recipeDao.saveRecipe(recipeEntity);
     }
 
     @Override
