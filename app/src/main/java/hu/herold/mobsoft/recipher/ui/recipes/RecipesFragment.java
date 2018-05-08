@@ -106,6 +106,12 @@ public class RecipesFragment extends Fragment implements RecipesScreen {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @Override
     public void showRecipes(List<Recipe> recipes) {
         if (recipeSwipeRefreshLayout != null) {
             recipeSwipeRefreshLayout.setRefreshing(false);
@@ -133,11 +139,5 @@ public class RecipesFragment extends Fragment implements RecipesScreen {
         }
 
         Toast.makeText(getContext(), errorMsg, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }
