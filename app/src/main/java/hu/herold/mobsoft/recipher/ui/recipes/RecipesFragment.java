@@ -7,11 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
 import hu.herold.mobsoft.recipher.ui.ViewPagerFragment;
+import hu.herold.mobsoft.recipher.ui.recipes.details.RecipeDetailsActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,8 +39,6 @@ public class RecipesFragment extends Fragment implements RecipesScreen, ViewPage
     @Inject
     RecipesPresenter recipesPresenter;
 
-    @BindView(R.id.recipeEditText)
-    EditText recipeEditText;
     @BindView(R.id.recipeRecyclerView)
     RecyclerView recipeRecyclerView;
     @BindView(R.id.emptyTextView)
@@ -46,6 +47,8 @@ public class RecipesFragment extends Fragment implements RecipesScreen, ViewPage
     SwipeRefreshLayout recipeSwipeRefreshLayout;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+    @BindView(R.id.searchView)
+    SearchView searchView;
 
     Unbinder unbinder;
 
@@ -72,14 +75,32 @@ public class RecipesFragment extends Fragment implements RecipesScreen, ViewPage
 
         recipeList = new ArrayList();
 
-        recipesAdapter = new RecipesAdapter(getActivity(), recipeList);
+        RecipesAdapterOptions recipesAdapterOptions = new RecipesAdapterOptions();
+        recipesAdapterOptions.setTargetNavigationClass(RecipeDetailsActivity.class);
+
+        recipesAdapter = new RecipesAdapter(getActivity(), recipeList, recipesAdapterOptions);
         recipeRecyclerView.setAdapter(recipesAdapter);
 
         recipeSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                recipeFilter = recipeEditText.getText().toString();
+                recipeFilter = searchView.getQuery().toString();
                 recipesPresenter.refreshRecipes(recipeFilter);
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                recipeFilter = query;
+                recipesPresenter.refreshRecipes(recipeFilter);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                recipeFilter = newText;
+                return false;
             }
         });
 
@@ -101,7 +122,7 @@ public class RecipesFragment extends Fragment implements RecipesScreen, ViewPage
     @Override
     public void onResume() {
         super.onResume();
-        recipeFilter = recipeEditText.getText().toString();
+        recipeFilter = searchView.getQuery().toString();
         progressBar.setVisibility(View.VISIBLE);
         recipesPresenter.refreshRecipes(recipeFilter);
     }
@@ -144,7 +165,7 @@ public class RecipesFragment extends Fragment implements RecipesScreen, ViewPage
 
     @Override
     public void onSwitchedTo() {
-        recipeFilter = recipeEditText.getText().toString();
+        recipeFilter = searchView.getQuery().toString();
         progressBar.setVisibility(View.VISIBLE);
         recipesPresenter.refreshRecipes(recipeFilter);
     }

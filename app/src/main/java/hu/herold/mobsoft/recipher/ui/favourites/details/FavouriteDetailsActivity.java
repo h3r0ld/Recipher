@@ -1,4 +1,4 @@
-package hu.herold.mobsoft.recipher.ui.recipes.details;
+package hu.herold.mobsoft.recipher.ui.favourites.details;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,11 +31,12 @@ import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesAdapter;
+import hu.herold.mobsoft.recipher.ui.recipes.details.IngredientsAdapter;
 
-public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDetailsScreen {
+public class FavouriteDetailsActivity extends AppCompatActivity implements FavouriteDetailsScreen {
 
     @Inject
-    RecipeDetailsPresenter recipeDetailsPresenter;
+    FavouriteDetailsPresenter favouriteDetailsPresenter;
 
     @BindView(R.id.pictImageView)
     ImageView pictImageView;
@@ -53,25 +54,26 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
     ProgressBar progressBar;
     @BindView(R.id.fabSave)
     FloatingActionButton fabSave;
-    @BindView(R.id.fabActionMenu)
-    FloatingActionMenu fabActionMenu;
     @BindView(R.id.fabDelete)
     FloatingActionButton fabDelete;
+    @BindView(R.id.fabActionMenu)
+    FloatingActionMenu fabActionMenu;
     @BindView(R.id.titleEditText)
     EditText titleEditText;
 
-    protected Recipe recipe;
-    protected List<String> ingredients;
-    protected IngredientsAdapter ingredientsAdapter;
+    private Recipe recipe;
+    private List<String> ingredients;
+    private IngredientsAdapter ingredientsAdapter;
 
-    public RecipeDetailsActivity() {
+
+    public FavouriteDetailsActivity() {
         RecipherApplication.injector.inject(this);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_details);
+        setContentView(R.layout.activity_favourite_details);
         ButterKnife.bind(this);
 
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
@@ -82,26 +84,24 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
 
         ingredientsAdapter = new IngredientsAdapter(ingredients);
         ingredientRecyclerView.setAdapter(ingredientsAdapter);
-
-        fabActionMenu.removeMenuButton(fabSave);
-        fabActionMenu.removeMenuButton(fabDelete);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        recipeDetailsPresenter.attachScreen(this);
+        favouriteDetailsPresenter.attachScreen(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        recipeDetailsPresenter.detachScreen();
+        favouriteDetailsPresenter.detachScreen();
     }
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
+
         setVisibility(false, false, true);
 
         Intent intent = getIntent();
@@ -109,53 +109,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
         if (intent != null && intent.getExtras() != null && intent.getExtras().containsKey(RecipesAdapter.RECIPE)) {
             String json = intent.getExtras().getString(RecipesAdapter.RECIPE);
             Recipe recipe = (new Gson()).fromJson(json, Recipe.class);
-            recipeDetailsPresenter.getRecipeDetails(recipe);
+            favouriteDetailsPresenter.getRecipeDetails(recipe);
         } else {
             setVisibility(false, false, false);
             showMessage("No data found.");
         }
-    }
-
-    @OnClick(R.id.fabSave)
-    public void onSaveClicked() {
-//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-//
-//        final EditText input = new EditText(this);
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                LinearLayout.LayoutParams.MATCH_PARENT);
-//        input.setLayoutParams(lp);
-//
-//        alertDialogBuilder.setTitle(R.string.encryptionTitle);
-//        alertDialogBuilder
-//                .setMessage(R.string.encryptionText)
-//                .setCancelable(false)
-//                .setNegativeButton(R.string.exit, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        ((RecipeDetailsActivity) getApplicationContext()).finish();
-//                    }
-//                })
-//                .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        dialog.cancel();
-//                    }
-//                });
-//        AlertDialog alertDialog = alertDialogBuilder.create();
-//        alertDialog.setView(input);
-//        alertDialog.show();
-
-        recipeDetailsPresenter.saveFavouriteRecipe(recipe);
-    }
-
-    @OnClick(R.id.fabDelete)
-    public void onDeleteClicked() {
-        recipeDetailsPresenter.deleteFavouriteRecipe(recipe.getRecipeId());
-    }
-
-    @Override
-    public void showNetworkError(String message) {
-        setVisibility(false, false, false);
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -167,43 +125,22 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
     public void deletedRecipe() {
         fabActionMenu.close(true);
 
-        fabActionMenu.removeMenuButton(fabDelete);
-        fabActionMenu.addMenuButton(fabSave);
-
-        titleEditText.setEnabled(true);
-        descriptionEditText.setEnabled(true);
-
         Snackbar.make(fabActionMenu, "Removed from favourites.", Snackbar.LENGTH_LONG)
-                .setAction("Undo", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        recipeDetailsPresenter.saveFavouriteRecipe(recipe);
-                    }
-                }).show();
+                .show();
+
+        finish();
     }
 
     @Override
     public void savedRecipe() {
         fabActionMenu.close(true);
 
-        fabActionMenu.removeMenuButton(fabSave);
-        fabActionMenu.addMenuButton(fabDelete);
-
-        titleEditText.setEnabled(false);
-        descriptionEditText.setEnabled(false);
-
-        Snackbar.make(fabActionMenu, "Added to favourites.", Snackbar.LENGTH_LONG)
-                .setAction("Undo", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        recipeDetailsPresenter.deleteFavouriteRecipe(recipe.getRecipeId());
-                    }
-                }).show();
+        Snackbar.make(fabActionMenu, "Saved Changes.", Snackbar.LENGTH_LONG)
+                .show();
     }
 
     @Override
     public void showRecipe(Recipe recipe) {
-
         if (recipe == null) {
             setVisibility(false, false, false);
             showMessage("No recipe details.");
@@ -230,15 +167,18 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
         }
         descriptionEditText.setText(recipe.getDescription());
 
-        if (recipe.getFavourite()) {
-            fabActionMenu.addMenuButton(fabDelete);
-            titleEditText.setEnabled(false);
-            descriptionEditText.setEnabled(false);
-        } else {
-            fabActionMenu.addMenuButton(fabSave);
-        }
-
         setVisibility(true, true, false);
+    }
+
+    @OnClick(R.id.fabDelete)
+    public void onDeleteClicked() {
+        favouriteDetailsPresenter.deleteRecipe(recipe.getRecipeId());
+    }
+
+    @OnClick(R.id.fabSave)
+    public void onSaveClicked() {
+        recipe.setDescription(descriptionEditText.getText().toString());
+        favouriteDetailsPresenter.saveRecipe(recipe);
     }
 
     protected void setVisibility(boolean layoutVisible, boolean fabVisible, boolean progressBarVisible) {
@@ -246,6 +186,5 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
         fabActionMenu.setVisibility(fabVisible ? View.VISIBLE : View.GONE);
         progressBar.setVisibility(progressBarVisible ? View.VISIBLE : View.GONE);
     }
-
 
 }
