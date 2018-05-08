@@ -61,8 +61,8 @@ public class RecipesInteractor {
         }
     }
 
-    public  void getRecipeDetails(String id) {
-        Call<GetResponse> recipeByIdCall = recipeApi.getRecipeById(id);
+    public  void getRecipeDetails(Recipe recipe) {
+        Call<GetResponse> recipeByIdCall = recipeApi.getRecipeById(recipe.getRecipeId());
 
         GetRecipeDetailsEvent event = new GetRecipeDetailsEvent();
         try {
@@ -71,6 +71,8 @@ public class RecipesInteractor {
             if (recipeResponse.code() != 200) {
                 throw new Exception("Result code is not 200, code is: " + recipeResponse.code());
             }
+
+            recipeResponse.body().getRecipe().setFavourite(recipe.getFavourite());
 
             event.setCode(recipeResponse.code());
             event.setRecipe(recipeResponse.body().getRecipe());
