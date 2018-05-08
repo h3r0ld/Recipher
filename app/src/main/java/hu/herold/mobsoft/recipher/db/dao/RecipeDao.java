@@ -22,6 +22,9 @@ public interface RecipeDao {
     @Query("SELECT recipeId, title, imageUrl, socialRank, isEncrypted FROM RECIPES")
     List<RecipeEntity> getRecipes();
 
+    @Query("SELECT recipeId FROM RECIPES")
+    List<String> getRecipeIds();
+
     @Query("SELECT * FROM recipes WHERE :recipeId = recipeId")
     RecipeEntity getRecipeById(String recipeId);
 

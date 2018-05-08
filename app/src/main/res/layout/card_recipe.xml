@@ -66,12 +66,13 @@
                     android:textSize="18sp"/>
 
                 <ImageView
+                    android:id="@+id/favouriteIconImageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:paddingRight="10dp"
-                    android:src="@drawable/ic_star_border_black_18dp"/>
+                    android:padding="10dp"/>
             </RelativeLayout>
 
 
