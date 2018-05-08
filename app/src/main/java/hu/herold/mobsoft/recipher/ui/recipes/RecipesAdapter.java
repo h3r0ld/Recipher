@@ -20,7 +20,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
-import hu.herold.mobsoft.recipher.ui.recipes.details.RecipeDetailsActivity;
 
 /**
  * Created by herold on 2018. 05. 06..
@@ -32,16 +31,18 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
     private Context context;
     private List<Recipe> recipeList;
+    private RecipesAdapterOptions recipesAdapterOptions;
 
-    public RecipesAdapter(Context context, List<Recipe> recipeList) {
+    public RecipesAdapter(Context context, List<Recipe> recipeList, RecipesAdapterOptions recipesAdapterOptions) {
         this.context = context;
         this.recipeList = recipeList;
+        this.recipesAdapterOptions = recipesAdapterOptions;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_recipe, viewGroup, false);
-        return new ViewHolder(itemView, context);
+        return new ViewHolder(itemView, context, recipesAdapterOptions);
     }
 
     @Override
@@ -51,11 +52,11 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
         holder.setRecipe(recipe);
 
         if (recipe.getImageUrl() != null) {
-            Glide.with(context).load(recipe.getImageUrl()).into(holder.imageIV);
+            Glide.with(context).load(recipe.getImageUrl()).into(holder.pictImageView);
         }
 
-        holder.nameTV.setText(recipe.getTitle());
-        holder.scoreTV.setText(recipe.getSocialRank().toString());
+        holder.titleTextView.setText(recipe.getTitle());
+        holder.scoreTextView.setText(recipe.getSocialRank().toString());
 
         Drawable icon = null;
 
@@ -75,22 +76,28 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.cardRecipe)
-        CardView cardRecipe;
-        @BindView(R.id.imageIV)
-        ImageView imageIV;
-        @BindView(R.id.nameTV)
-        TextView nameTV;
-        @BindView(R.id.scoreTV)
-        TextView scoreTV;
+        @BindView(R.id.pictImageView)
+        ImageView pictImageView;
+        @BindView(R.id.titleTextView)
+        TextView titleTextView;
+        @BindView(R.id.socialScore)
+        TextView socialScore;
+        @BindView(R.id.scoreTextView)
+        TextView scoreTextView;
         @BindView(R.id.favouriteIconImageView)
         ImageView favouriteIconImageView;
+        @BindView(R.id.cardRecipe)
+        CardView cardRecipe;
 
         private Recipe recipe;
 
-        public ViewHolder(View itemView, final Context context) {
+        public ViewHolder(View itemView, final Context context, final RecipesAdapterOptions recipesAdapterOptions) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            if (!recipesAdapterOptions.isFavouriteVisible()) {
+                favouriteIconImageView.setVisibility(View.INVISIBLE);
+            }
 
             cardRecipe.setOnClickListener(new CardView.OnClickListener() {
                 @Override
@@ -104,8 +111,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 //                    fmTransaction.replace(R.id.recipesFrameLayout, fragment);
 //                    fmTransaction.addToBackStack(null);
 //                    fmTransaction.commit();
-
-                    Intent intent = new Intent(context, RecipeDetailsActivity.class);
+                    Intent intent = new Intent(context, recipesAdapterOptions.getTargetNavigationClass());
                     intent.putExtra(RECIPE, (new Gson()).toJson(recipe));
 
                     context.startActivity(intent);

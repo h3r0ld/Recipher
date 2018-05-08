@@ -2,17 +2,15 @@ package hu.herold.mobsoft.recipher.ui.favourites;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +26,9 @@ import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
 import hu.herold.mobsoft.recipher.ui.ViewPagerFragment;
+import hu.herold.mobsoft.recipher.ui.favourites.details.FavouriteDetailsActivity;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesAdapter;
+import hu.herold.mobsoft.recipher.ui.recipes.RecipesAdapterOptions;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,8 +38,6 @@ public class FavouritesFragment extends Fragment implements FavouritesScreen, Vi
     @Inject
     FavouritesPresenter favouritesPresenter;
 
-    @BindView(R.id.titleFilterEditText)
-    EditText titleFilterEditText;
     @BindView(R.id.favouritesRecyclerView)
     RecyclerView favouritesRecyclerView;
     @BindView(R.id.emptyTextView)
@@ -48,6 +46,8 @@ public class FavouritesFragment extends Fragment implements FavouritesScreen, Vi
     SwipeRefreshLayout favouritesSwipeRefreshLayout;
     @BindView(R.id.favouritesFrameLayout)
     FrameLayout favouritesFrameLayout;
+    @BindView(R.id.searchView)
+    SearchView searchView;
 
     Unbinder unbinder;
 
@@ -73,14 +73,34 @@ public class FavouritesFragment extends Fragment implements FavouritesScreen, Vi
 
         recipeList = new ArrayList();
 
-        recipesAdapter = new RecipesAdapter(getActivity(), recipeList);
+        RecipesAdapterOptions recipesAdapterOptions = new RecipesAdapterOptions();
+        recipesAdapterOptions.setFavouriteVisible(false);
+        recipesAdapterOptions.setTargetNavigationClass(FavouriteDetailsActivity.class);
+
+
+        recipesAdapter = new RecipesAdapter(getActivity(), recipeList, recipesAdapterOptions);
         favouritesRecyclerView.setAdapter(recipesAdapter);
 
         favouritesSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                titleFilter = titleFilterEditText.getText().toString();
+                titleFilter = searchView.getQuery().toString();
                 favouritesPresenter.refreshFavouriteRecipes(titleFilter, ingredientsFilter);
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                titleFilter = query;
+                favouritesPresenter.refreshFavouriteRecipes(titleFilter, ingredientsFilter);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                titleFilter = newText;
+                return false;
             }
         });
 
@@ -102,7 +122,7 @@ public class FavouritesFragment extends Fragment implements FavouritesScreen, Vi
     @Override
     public void onResume() {
         super.onResume();
-        titleFilter = titleFilterEditText.getText().toString();
+        titleFilter = searchView.getQuery().toString();
         favouritesPresenter.refreshFavouriteRecipes(titleFilter, ingredientsFilter);
     }
 
@@ -141,7 +161,7 @@ public class FavouritesFragment extends Fragment implements FavouritesScreen, Vi
 
     @Override
     public void onSwitchedTo() {
-        titleFilter = titleFilterEditText.getText().toString();
+        titleFilter = searchView.getQuery().toString();
         favouritesPresenter.refreshFavouriteRecipes(titleFilter, ingredientsFilter);
     }
 }

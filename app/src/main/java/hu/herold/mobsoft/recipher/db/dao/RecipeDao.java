@@ -19,8 +19,8 @@ import hu.herold.mobsoft.recipher.db.entity.RecipeEntity;
 public interface RecipeDao {
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    @Query("SELECT recipeId, title, imageUrl, socialRank, isEncrypted FROM RECIPES")
-    List<RecipeEntity> getRecipes();
+    @Query("SELECT recipeId, title, imageUrl, socialRank, isEncrypted FROM RECIPES WHERE title LIKE :query")
+    List<RecipeEntity> getRecipes(String query);
 
     @Query("SELECT recipeId FROM RECIPES")
     List<String> getRecipeIds();
