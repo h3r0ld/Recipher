@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ import hu.herold.mobsoft.recipher.ui.recipes.details.RecipeDetailsActivity;
 
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHolder> {
 
-    public static final String RECIPE_ID = "RECIPE_ID";
+    public static final String RECIPE = "RECIPE";
 
     private Context context;
     private List<Recipe> recipeList;
@@ -61,9 +62,6 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
         if (recipe.getFavourite()) {
             icon = context.getResources().getDrawable(R.drawable.ic_star_white_18dp);
-            int color = context.getResources().getColor(R.color.star_filled);
-            holder.favouriteIconImageView.setColorFilter(color);
-
         } else {
             icon = context.getResources().getDrawable(R.drawable.ic_star_border_black_18dp);
         }
@@ -109,7 +107,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 //                    fmTransaction.commit();
 
                     Intent intent = new Intent(context, RecipeDetailsActivity.class);
-                    intent.putExtra(RECIPE_ID, recipe.getRecipeId());
+                    intent.putExtra(RECIPE, (new Gson()).toJson(recipe));
 
                     context.startActivity(intent);
                 }

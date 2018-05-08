@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.interactor.favourites.FavouritesInteractor;
+import hu.herold.mobsoft.recipher.interactor.recipes.event.DeleteRecipeEvent;
 import hu.herold.mobsoft.recipher.interactor.recipes.event.GetRecipeDetailsEvent;
 import hu.herold.mobsoft.recipher.interactor.recipes.event.GetRecipesEvent;
 import hu.herold.mobsoft.recipher.interactor.recipes.event.SaveRecipeEvent;
@@ -40,11 +41,11 @@ public class RecipeDetailsPresenter extends Presenter<RecipeDetailsScreen> {
         EventBus.getDefault().unregister(this);
     }
 
-    public void getRecipeDetails(final String recipeId) {
+    public void getRecipeDetails(final Recipe recipe) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                recipeInteractor.getRecipeDetails(recipeId);
+                recipeInteractor.getRecipeDetails(recipe);
             }
         }).start();
     }
@@ -55,7 +56,7 @@ public class RecipeDetailsPresenter extends Presenter<RecipeDetailsScreen> {
             public void run() {
                 recipeInteractor.saveRecipe(recipe);
             }
-        });
+        }).start();
     }
 
     public void deleteFavouriteRecipe(final String id){
@@ -64,7 +65,7 @@ public class RecipeDetailsPresenter extends Presenter<RecipeDetailsScreen> {
             public void run() {
                 recipeInteractor.deleteRecipe(id);
             }
-        });
+        }).start();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -92,13 +93,13 @@ public class RecipeDetailsPresenter extends Presenter<RecipeDetailsScreen> {
             }
         } else {
             if (screen != null) {
-                screen.showMessage("Successfully added to favourites!");
+                screen.savedRecipe();
             }
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void handleDeleteRecipeEvent(final SaveRecipeEvent event) {
+    public void handleDeleteRecipeEvent(final DeleteRecipeEvent event) {
         if (event.getThrowable() != null) {
             event.getThrowable().printStackTrace();
 
@@ -107,7 +108,7 @@ public class RecipeDetailsPresenter extends Presenter<RecipeDetailsScreen> {
             }
         } else {
             if (screen != null) {
-                screen.showMessage("Successfully removed from favourites!");
+                screen.deletedRecipe();
             }
         }
     }

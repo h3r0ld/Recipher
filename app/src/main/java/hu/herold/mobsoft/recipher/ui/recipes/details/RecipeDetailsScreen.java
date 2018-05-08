@@ -10,6 +10,10 @@ import hu.herold.mobsoft.recipher.network.model.Recipe;
 
 public interface RecipeDetailsScreen {
 
+    void deletedRecipe();
+
+    void savedRecipe();
+
     void showRecipe(Recipe recipe);
 
     void showNetworkError(String message);
