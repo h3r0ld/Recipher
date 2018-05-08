@@ -1,5 +1,6 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,7 +16,7 @@
 
         <GridLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1">
 
@@ -31,7 +32,7 @@
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_columnSpan="2"
                 android:layout_row="0" />
@@ -56,13 +57,22 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/ingredientRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="3">
         </android.support.v7.widget.RecyclerView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_column="1"
+            android:layout_columnSpan="2"
+            android:layout_row="1"
+            android:background="?android:attr/listDivider" />
 
         <EditText
             android:id="@+id/descriptionEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="3"/>
     </LinearLayout>
 
@@ -72,12 +82,30 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:src="@drawable/ic_star_border_black_18dp"
-        android:layout_margin="16dp"/>
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fabActionMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        fab:menu_labels_ellipsize="end"
+        fab:menu_labels_singleLine="true"
+        fab:menu_fab_label="Cancel"
+        fab:menu_backgroundColor="#ccffffff"
+        fab:menu_animationDelayPerItem="0"
+        fab:menu_colorNormal="#00C29F"
+        fab:menu_colorPressed="#00C29F"
+        fab:menu_colorRipple="#00C29F"
+        android:padding="8dp">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_star_white_18dp"
+            android:tint="@color/star_filled"
+            fab:fab_size="mini"
+            fab:fab_label="@string/AddToFavourites"/>
+
+    </com.github.clans.fab.FloatingActionMenu>
 </FrameLayout>
