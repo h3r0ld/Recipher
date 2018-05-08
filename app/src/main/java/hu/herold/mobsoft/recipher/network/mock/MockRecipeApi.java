@@ -1,6 +1,7 @@
 package hu.herold.mobsoft.recipher.network.mock;
 
 import hu.herold.mobsoft.recipher.network.api.RecipeApi;
+import hu.herold.mobsoft.recipher.network.model.GetResponse;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
 import hu.herold.mobsoft.recipher.network.model.SearchResponse;
 import retrofit2.Call;
@@ -12,7 +13,7 @@ import retrofit2.Call;
 public class MockRecipeApi implements RecipeApi {
 
     @Override
-    public Call<Recipe> getRecipeById(String rId) {
+    public Call<GetResponse> getRecipeById(String rId) {
         return null;
     }
 
