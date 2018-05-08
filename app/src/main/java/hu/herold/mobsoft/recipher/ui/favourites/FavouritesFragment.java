@@ -27,12 +27,13 @@ import butterknife.Unbinder;
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
+import hu.herold.mobsoft.recipher.ui.ViewPagerFragment;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FavouritesFragment extends Fragment implements FavouritesScreen {
+public class FavouritesFragment extends Fragment implements FavouritesScreen, ViewPagerFragment {
 
     @Inject
     FavouritesPresenter favouritesPresenter;
@@ -62,7 +63,6 @@ public class FavouritesFragment extends Fragment implements FavouritesScreen {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("Life", "OnCreateView");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favourites, container, false);
         unbinder = ButterKnife.bind(this, view);
@@ -90,21 +90,18 @@ public class FavouritesFragment extends Fragment implements FavouritesScreen {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.d("Life", "OnAttach");
         favouritesPresenter.attachScreen(this);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.d("Life", "OnDetach");
         favouritesPresenter.detachScreen();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("Life", "OnResume");
         titleFilter = titleFilterEditText.getText().toString();
         favouritesPresenter.refreshFavouriteRecipes(titleFilter, ingredientsFilter);
     }
@@ -139,38 +136,13 @@ public class FavouritesFragment extends Fragment implements FavouritesScreen {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.d("Life", "OnDestroyView");
         unbinder.unbind();
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("Life", "OnStart");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("Life", "OnPause");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("Life", "OnDestroy");
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d("Life", "OnCreate");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("Life", "OnStop");
+    public void onSwitchedTo() {
+        titleFilter = titleFilterEditText.getText().toString();
+        favouritesPresenter.refreshFavouriteRecipes(titleFilter, ingredientsFilter);
     }
 }
 
