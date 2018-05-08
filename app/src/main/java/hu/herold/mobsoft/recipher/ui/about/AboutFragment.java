@@ -12,11 +12,12 @@ import javax.inject.Inject;
 
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
+import hu.herold.mobsoft.recipher.ui.ViewPagerFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AboutFragment extends Fragment implements AboutScreen {
+public class AboutFragment extends Fragment implements AboutScreen, ViewPagerFragment {
 
     @Inject
     AboutPresenter aboutPresenter;
@@ -47,5 +48,10 @@ public class AboutFragment extends Fragment implements AboutScreen {
         super.onDetach();
 
         aboutPresenter.detachScreen();
+    }
+
+    @Override
+    public void onSwitchedTo() {
+
     }
 }

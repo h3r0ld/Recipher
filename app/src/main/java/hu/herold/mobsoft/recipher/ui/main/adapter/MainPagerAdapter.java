@@ -1,9 +1,10 @@
 package hu.herold.mobsoft.recipher.ui.main.adapter;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import java.util.List;
 
 import hu.herold.mobsoft.recipher.ui.about.AboutFragment;
 import hu.herold.mobsoft.recipher.ui.favourites.FavouritesFragment;
@@ -15,24 +16,17 @@ import hu.herold.mobsoft.recipher.ui.recipes.RecipesFragment;
 
 public class MainPagerAdapter extends FragmentStatePagerAdapter {
 
-    private static final int NUM_PAGES = 3;
+    private List<Fragment> fragments;
 
-    public MainPagerAdapter(FragmentManager fm) {
+    public MainPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);
+
+        this.fragments = fragments;
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return new RecipesFragment();
-            case 1:
-                return new FavouritesFragment();
-            case 2:
-                return new AboutFragment();
-            default:
-                return new AboutFragment();
-        }
+        return fragments.get(position);
     }
 
     @Override
@@ -42,7 +36,7 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return NUM_PAGES;
+        return fragments.size();
     }
 
 }

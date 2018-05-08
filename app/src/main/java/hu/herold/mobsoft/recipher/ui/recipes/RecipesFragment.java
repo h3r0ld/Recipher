@@ -26,11 +26,12 @@ import butterknife.Unbinder;
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
+import hu.herold.mobsoft.recipher.ui.ViewPagerFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecipesFragment extends Fragment implements RecipesScreen {
+public class RecipesFragment extends Fragment implements RecipesScreen, ViewPagerFragment {
 
     @Inject
     RecipesPresenter recipesPresenter;
@@ -139,5 +140,12 @@ public class RecipesFragment extends Fragment implements RecipesScreen {
         }
 
         Toast.makeText(getContext(), errorMsg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onSwitchedTo() {
+        recipeFilter = recipeEditText.getText().toString();
+        progressBar.setVisibility(View.VISIBLE);
+        recipesPresenter.refreshRecipes(recipeFilter);
     }
 }
