@@ -2,7 +2,6 @@ package hu.herold.mobsoft.recipher.ui.recipes;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -60,7 +59,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
         Drawable icon = null;
 
-        if (recipe.getFavourite()) {
+        if (recipe.getFavourite() != null && recipe.getFavourite()) {
             icon = context.getResources().getDrawable(R.drawable.ic_star_white_18dp);
         } else {
             icon = context.getResources().getDrawable(R.drawable.ic_star_border_black_18dp);

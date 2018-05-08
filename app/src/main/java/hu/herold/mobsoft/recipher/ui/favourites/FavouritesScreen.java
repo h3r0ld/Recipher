@@ -12,4 +12,6 @@ import hu.herold.mobsoft.recipher.network.model.Recipe;
 public interface FavouritesScreen {
 
     void showFavouriteRecipes(List<Recipe> recipes);
+
+    void showMessage(String message);
 }

@@ -23,11 +23,14 @@ public class RecipesPresenter extends Presenter<RecipesScreen> {
     @Inject
     RecipesInteractor recipesInteractor;
 
+    public RecipesPresenter() {
+        RecipherApplication.injector.inject(this);
+    }
+
     @Override
     public void attachScreen(RecipesScreen screen) {
-        super.attachScreen(screen);
-        RecipherApplication.injector.inject(this);
         EventBus.getDefault().register(this);
+        super.attachScreen(screen);
     }
 
     @Override
@@ -46,7 +49,7 @@ public class RecipesPresenter extends Presenter<RecipesScreen> {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(final GetRecipesEvent event) {
+    public void handleGetRecipesEvent(final GetRecipesEvent event) {
         if (event.getThrowable() != null) {
             event.getThrowable().printStackTrace();
 
