@@ -25,7 +25,8 @@ public class RecipeDataSource implements RecipeRepository {
 
     @Override
     public List<RecipeEntity> getRecipes(String filter) {
-        return recipeDao.getRecipes();
+        filter = "%" + filter + "%";
+        return recipeDao.getRecipes(filter);
     }
 
     @Override

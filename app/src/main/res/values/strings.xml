@@ -11,11 +11,15 @@
     <string name="aboutAllrights">All rigths reserved.</string>
     <string name="aboutVersion">Application version v1.0</string>
     <string name="noData">No recipes found.</string>
-    <string name="socialScore">Social score:</string>
+    <string name="socialScore">Social rank:</string>
     <string name="AddToFavourites">Add to favourites</string>
     <string name="encryptionTitle">Encryption</string>
     <string name="encryptionText">If you want to protect this recipe with a password, write below. If no, then just leave it empty.</string>
     <string name="save">Save</string>
     <string name="exit">Cancel</string>
     <string name="RemoveFromFavourites">Remove from favourites</string>
+    <string name="SaveChanges">Save Changes</string>
+    <string name="descriptionHint">No description is available. Fill it, then add the recipe to your favourites to keep the changes!</string>
+    <string name="recipeSearchHint">Search recipes...</string>
+    <string name="favoruiteSearchHint">Search favourite recipes...</string>
 </resources>

@@ -1,4 +1,4 @@
-package hu.herold.mobsoft.recipher.ui.recipes.details;
+package hu.herold.mobsoft.recipher.ui.favourites.details;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -8,29 +8,27 @@ import javax.inject.Inject;
 
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.interactor.favourites.FavouritesInteractor;
-import hu.herold.mobsoft.recipher.interactor.recipes.event.DeleteRecipeEvent;
-import hu.herold.mobsoft.recipher.interactor.recipes.event.GetRecipeDetailsEvent;
-import hu.herold.mobsoft.recipher.interactor.recipes.event.GetRecipesEvent;
-import hu.herold.mobsoft.recipher.interactor.recipes.event.SaveRecipeEvent;
+import hu.herold.mobsoft.recipher.interactor.favourites.event.DeleteFavouriteEvent;
+import hu.herold.mobsoft.recipher.interactor.favourites.event.GetFavouriteDetailsEvent;
+import hu.herold.mobsoft.recipher.interactor.favourites.event.SaveFavouriteEvent;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
-import hu.herold.mobsoft.recipher.interactor.recipes.RecipesInteractor;
 import hu.herold.mobsoft.recipher.ui.Presenter;
 
 /**
- * Created by herold on 2018. 03. 23..
+ * Created by herold on 2018. 05. 08..
  */
 
-public class RecipeDetailsPresenter extends Presenter<RecipeDetailsScreen> {
+public class FavouriteDetailsPresenter extends Presenter<FavouriteDetailsScreen> {
 
     @Inject
-    RecipesInteractor recipeInteractor;
+    FavouritesInteractor favouritesInteractor;
 
-    public RecipeDetailsPresenter() {
+    public FavouriteDetailsPresenter() {
         RecipherApplication.injector.inject(this);
     }
 
     @Override
-    public void attachScreen(RecipeDetailsScreen screen) {
+    public void attachScreen(FavouriteDetailsScreen screen) {
         EventBus.getDefault().register(this);
         super.attachScreen(screen);
     }
@@ -45,36 +43,36 @@ public class RecipeDetailsPresenter extends Presenter<RecipeDetailsScreen> {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                recipeInteractor.getRecipeDetails(recipe);
+                favouritesInteractor.getFavouriteRecipeById(recipe.getRecipeId());
             }
         }).start();
     }
 
-    public void saveFavouriteRecipe(final Recipe recipe) {
+    public void saveRecipe(final Recipe recipe) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                recipeInteractor.saveRecipe(recipe);
+                favouritesInteractor.saveFavouriteRecipe(recipe);
             }
         }).start();
     }
 
-    public void deleteFavouriteRecipe(final String id){
+    public void deleteRecipe(final String id) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                recipeInteractor.deleteRecipe(id);
+                favouritesInteractor.deleteFavoriteRecipe(id);
             }
         }).start();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void handleGetRecipeDetailsEvent(final GetRecipeDetailsEvent event) {
+    public void handleGetFavouriteDetailsEvent(final GetFavouriteDetailsEvent event) {
         if (event.getThrowable() != null) {
             event.getThrowable().printStackTrace();
 
             if (screen != null) {
-                screen.showNetworkError(event.getThrowable().getMessage());
+                screen.showMessage(event.getThrowable().getMessage());
             }
         } else {
             if (screen != null) {
@@ -84,7 +82,7 @@ public class RecipeDetailsPresenter extends Presenter<RecipeDetailsScreen> {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void handleSaveRecipeEvent(final SaveRecipeEvent event) {
+    public void handleSaveRecipeEvent(final SaveFavouriteEvent event) {
         if (event.getThrowable() != null) {
             event.getThrowable().printStackTrace();
 
@@ -99,7 +97,7 @@ public class RecipeDetailsPresenter extends Presenter<RecipeDetailsScreen> {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void handleDeleteRecipeEvent(final DeleteRecipeEvent event) {
+    public void handleDeleteRecipeEvent(final DeleteFavouriteEvent event) {
         if (event.getThrowable() != null) {
             event.getThrowable().printStackTrace();
 
