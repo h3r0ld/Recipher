@@ -2,10 +2,13 @@ package hu.herold.mobsoft.recipher.ui.main;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerTabStrip;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -13,7 +16,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
+import hu.herold.mobsoft.recipher.ui.ViewPagerFragment;
+import hu.herold.mobsoft.recipher.ui.about.AboutFragment;
+import hu.herold.mobsoft.recipher.ui.favourites.FavouritesFragment;
 import hu.herold.mobsoft.recipher.ui.main.adapter.MainPagerAdapter;
+import hu.herold.mobsoft.recipher.ui.recipes.RecipesFragment;
 
 public class MainActivity extends AppCompatActivity implements MainScreen {
 
@@ -29,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
 
     private int[] tabIcons;
 
+    private List<Fragment> fragments;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +49,32 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
         getSupportActionBar().hide();
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewPager.setAdapter(new MainPagerAdapter(this.getSupportFragmentManager()));
+        fragments = new ArrayList<>();
+        fragments.add(new RecipesFragment());
+        fragments.add(new FavouritesFragment());
+        fragments.add(new AboutFragment());
+
+        viewPager.setAdapter(new MainPagerAdapter(this.getSupportFragmentManager(), fragments));
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                ViewPagerFragment viewPagerFragment = (ViewPagerFragment) fragments.get(position);
+                viewPagerFragment.onSwitchedTo();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
