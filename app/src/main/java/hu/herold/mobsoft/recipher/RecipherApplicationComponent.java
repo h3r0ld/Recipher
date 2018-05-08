@@ -11,6 +11,7 @@ import hu.herold.mobsoft.recipher.network.NetworkModule;
 import hu.herold.mobsoft.recipher.ui.UIModule;
 import hu.herold.mobsoft.recipher.ui.about.AboutFragment;
 import hu.herold.mobsoft.recipher.ui.favourites.FavouritesFragment;
+import hu.herold.mobsoft.recipher.ui.favourites.FavouritesPresenter;
 import hu.herold.mobsoft.recipher.ui.main.MainActivity;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesFragment;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesPresenter;
@@ -42,4 +43,6 @@ public interface RecipherApplicationComponent {
     void inject(RecipeDetailsActivity recipeDetailsActivity);
 
     void inject(RecipeDetailsPresenter recipeDetailsPresenter);
+
+    void inject(FavouritesPresenter favouritesPresenter);
 }
