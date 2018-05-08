@@ -1,19 +1,14 @@
 package hu.herold.mobsoft.recipher.ui.recipes;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.support.v4.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 
@@ -23,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
-import hu.herold.mobsoft.recipher.ui.recipes.details.RecipeDetailsFragment;
+import hu.herold.mobsoft.recipher.ui.recipes.details.RecipeDetailsActivity;
 
 /**
  * Created by herold on 2018. 05. 06..
@@ -86,21 +81,20 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
             cardRecipe.setOnClickListener(new CardView.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
+//                    FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString(RECIPE_ID, recipe.getRecipeId());
+//                    Fragment fragment = new RecipeDetailsFragment();
+//                    fragment.setArguments(bundle);
+//                    FragmentTransaction fmTransaction = fm.beginTransaction();
+//                    fmTransaction.replace(R.id.recipesFrameLayout, fragment);
+//                    fmTransaction.addToBackStack(null);
+//                    fmTransaction.commit();
 
-                    Bundle bundle = new Bundle();
+                    Intent intent = new Intent(context, RecipeDetailsActivity.class);
+                    intent.putExtra(RECIPE_ID, recipe.getRecipeId());
 
-                    bundle.putString(RECIPE_ID, recipe.getRecipeId());
-
-                    Fragment fragment = new RecipeDetailsFragment();
-                    fragment.setArguments(bundle);
-
-                    FragmentTransaction fmTransaction = fm.beginTransaction();
-
-                    fmTransaction.replace(R.id.recipesFrameLayout, fragment);
-                    fmTransaction.addToBackStack(null);
-
-                    fmTransaction.commit();
+                    context.startActivity(intent);
                 }
             });
         }

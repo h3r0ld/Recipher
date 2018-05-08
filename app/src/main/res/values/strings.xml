@@ -12,4 +12,5 @@
     <string name="aboutVersion">Application version v1.0</string>
     <string name="noData">No recipes found.</string>
     <string name="socialScore">Social score:</string>
+    <string name="AddToFavourites">Add to favourites</string>
 </resources>

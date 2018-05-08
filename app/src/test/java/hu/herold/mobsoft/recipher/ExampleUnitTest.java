@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import hu.herold.mobsoft.recipher.network.ApiClient;
 import hu.herold.mobsoft.recipher.network.api.RecipeApi;
+import hu.herold.mobsoft.recipher.network.model.GetResponse;
+import hu.herold.mobsoft.recipher.network.model.Recipe;
 import hu.herold.mobsoft.recipher.network.model.SearchResponse;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -40,4 +42,6 @@ public class ExampleUnitTest {
         System.out.println("Count: " + searchResponse.body().getCount());
         System.out.println("Recipes: " + searchResponse.body().getRecipes());
     }
+
+
 }

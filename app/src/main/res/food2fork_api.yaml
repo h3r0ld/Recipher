@@ -1,10 +1,10 @@
 swagger: '2.0'
 info:
-  version: '1.0.0'
+  version: 1.0.0
   title: Food2Fork
   description: Meal recipes Api
 host: food2fork.com
-schemes: 
+schemes:
   - http
 basePath: /api
 securityDefinitions:
@@ -12,93 +12,104 @@ securityDefinitions:
     type: apiKey
     in: query
     name: key
-security: 
+security:
   - ApiKeyAuth: []
 paths:
   /search:
     get:
-      operationId: 'searchRecipes'
+      operationId: searchRecipes
       tags:
-        - 'Recipe'
-      summary: 'Search recipes.'
+        - Recipe
+      summary: Search recipes.
       parameters:
         - in: query
           name: q
-          description: 'Search Query (Ingredients should be separated by commas). If this is omitted top rated recipes will be returned'
+          description: >-
+            Search Query (Ingredients should be separated by commas). If this is
+            omitted top rated recipes will be returned
           type: string
           required: false
         - in: query
           name: sort
-          description: 'How the results should be sorted. "r" - by rating, "t" - by trendingness.'
+          description: >-
+            How the results should be sorted. "r" - by rating, "t" - by
+            trendingness.
           type: string
           required: false
         - in: query
           name: page
-          description: 'Used to get additional results.'
+          description: Used to get additional results.
           type: integer
           required: false
       responses:
-        200:
-          description: 'Request was successful.'
+        '200':
+          description: Request was successful.
           schema:
             $ref: '#/definitions/SearchResponse'
   /get:
     get:
-      operationId: 'getRecipeById'
+      operationId: getRecipeById
       tags:
-        - 'Recipe'
-      summary: 'Get a recipe by id.'
-      parameters: 
+        - Recipe
+      summary: Get a recipe by id.
+      parameters:
         - in: query
           name: rId
-          description: 'Id of desired recipe as returned by Search Query'
+          description: Id of desired recipe as returned by Search Query
           type: string
           required: true
       responses:
-        200:
-          description: 'Request was successful.'
+        '200':
+          description: Request was successful.
           schema:
-            $ref: '#/definitions/Recipe'
+            $ref: '#/definitions/GetResponse'
 definitions:
   Recipe:
-    description: 'Full recipe.'
+    description: Full recipe.
     type: object
-    required: 
+    required:
       - recipe_id
     properties:
       recipe_id:
-        description: 'The ID of the recipe.'
+        description: The ID of the recipe.
         type: string
-      description: 
-        description: 'The description of the recipe.'
+      description:
+        description: The description of the recipe.
         type: string
       f2f_url:
-        description: 'Url of the recipe on Food2Fork.com'
+        description: Url of the recipe on Food2Fork.com
         type: string
       image_url:
-        description: 'URL of the image'
+        description: URL of the image
         type: string
       ingredients:
-        description: 'The ingredients of this recipe'
+        description: The ingredients of this recipe
         type: array
         items:
           type: string
       publisher:
-        description: 'Name of the Publisher'
+        description: Name of the Publisher
         type: string
       publisher_url:
-        description: 'Base url of the publisher'
+        description: Base url of the publisher
         type: string
       social_rank:
-        description: 'The Social Ranking of the Recipe (As determined by the F2F Ranking Algorithm)'
+        description: >-
+          The Social Ranking of the Recipe (As determined by the F2F Ranking
+          Algorithm)
         type: number
         format: double
       source_url:
-        description: "Original Url of the recipe on the publisher's site"  
+        description: Original Url of the recipe on the publisher's site
         type: string
       title:
-        description: 'Title of the recipe'
+        description: Title of the recipe
         type: string
+  GetResponse:
+    type: object
+    properties:
+      recipe:
+        $ref: '#/definitions/Recipe'
   SearchResponse:
     type: object
     properties:
