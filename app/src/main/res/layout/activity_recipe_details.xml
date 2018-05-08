@@ -64,9 +64,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_column="1"
-            android:layout_columnSpan="2"
-            android:layout_row="1"
             android:background="?android:attr/listDivider" />
 
         <EditText
@@ -86,8 +83,7 @@
         android:id="@+id/fabActionMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_gravity="end|bottom"
         fab:menu_labels_ellipsize="end"
         fab:menu_labels_singleLine="true"
         fab:menu_fab_label="Cancel"
@@ -103,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_star_white_18dp"
-            android:tint="@color/star_filled"
+            fab:fab_colorNormal="@color/star_filled"
             fab:fab_size="mini"
             fab:fab_label="@string/AddToFavourites"/>
 

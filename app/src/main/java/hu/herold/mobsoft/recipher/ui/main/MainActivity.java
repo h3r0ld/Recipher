@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
     }
 
     private void setupTabIcons() {
-        tabIcons = new int[] { R.drawable.ic_receipt_white_18dp, R.drawable.ic_stars_white_18dp, R.drawable.ic_info_white_18dp };
+        tabIcons = new int[] { R.drawable.ic_receipt_white_48dp, R.drawable.ic_stars_white_48dp, R.drawable.ic_info_white_48dp };
 
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);

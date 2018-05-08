@@ -47,6 +47,9 @@ public class Recipe   {
   @SerializedName("title")
   private String title = null;
   
+  @SerializedName("favourite")
+  private Boolean favourite = null;
+  
 
   
   /**
@@ -169,6 +172,18 @@ public class Recipe   {
   }
 
   
+  /**
+   * Indicates whether this recipe was favourited or not.
+   **/
+  @ApiModelProperty(value = "Indicates whether this recipe was favourited or not.")
+  public Boolean getFavourite() {
+    return favourite;
+  }
+  public void setFavourite(Boolean favourite) {
+    this.favourite = favourite;
+  }
+
+  
 
   @Override
   public boolean equals(Object o) {
@@ -188,12 +203,13 @@ public class Recipe   {
         Objects.equals(publisherUrl, recipe.publisherUrl) &&
         Objects.equals(socialRank, recipe.socialRank) &&
         Objects.equals(sourceUrl, recipe.sourceUrl) &&
-        Objects.equals(title, recipe.title);
+        Objects.equals(title, recipe.title) &&
+        Objects.equals(favourite, recipe.favourite);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(recipeId, description, f2fUrl, imageUrl, ingredients, publisher, publisherUrl, socialRank, sourceUrl, title);
+    return Objects.hash(recipeId, description, f2fUrl, imageUrl, ingredients, publisher, publisherUrl, socialRank, sourceUrl, title, favourite);
   }
 
   @Override
@@ -211,6 +227,7 @@ public class Recipe   {
     sb.append("    socialRank: ").append(toIndentedString(socialRank)).append("\n");
     sb.append("    sourceUrl: ").append(toIndentedString(sourceUrl)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    favourite: ").append(toIndentedString(favourite)).append("\n");
     sb.append("}");
     return sb.toString();
   }

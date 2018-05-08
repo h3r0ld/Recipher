@@ -18,6 +18,11 @@ public class MockRecipeRepository implements RecipeRepository {
     }
 
     @Override
+    public List<String> getRecipeIds() {
+        return null;
+    }
+
+    @Override
     public RecipeEntity getRecipeById(String id) {
         return null;
     }
