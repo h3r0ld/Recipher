@@ -5,6 +5,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
@@ -23,6 +24,9 @@ public class FavouritesPresenter extends Presenter<FavouritesScreen> {
     @Inject
     FavouritesInteractor favouritesInteractor;
 
+    @Inject
+    Executor executor;
+
     public FavouritesPresenter() {
         RecipherApplication.injector.inject(this);
     }
@@ -40,12 +44,11 @@ public class FavouritesPresenter extends Presenter<FavouritesScreen> {
     }
 
     public void refreshFavouriteRecipes(final String title, final List<String> ingredients) {
-        new Thread(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
-            public void run() {
-                favouritesInteractor.getFavouriteRecipes(title, ingredients);
+            public void run() {favouritesInteractor.getFavouriteRecipes(title, ingredients);
             }
-        }).start();
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

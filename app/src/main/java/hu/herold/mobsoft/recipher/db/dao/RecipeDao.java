@@ -20,13 +20,13 @@ public interface RecipeDao {
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT recipeId, title, imageUrl, socialRank, isEncrypted FROM RECIPES WHERE title LIKE :query")
-    List<RecipeEntity> getRecipes(String query);
+    List<RecipeEntity> getRecipes(String query) throws Exception;
 
     @Query("SELECT recipeId FROM RECIPES")
     List<String> getRecipeIds();
 
     @Query("SELECT * FROM recipes WHERE :recipeId = recipeId")
-    RecipeEntity getRecipeById(String recipeId);
+    RecipeEntity getRecipeById(String recipeId) throws Exception;
 
     @Insert
     void saveRecipe(RecipeEntity... recipeEntity);

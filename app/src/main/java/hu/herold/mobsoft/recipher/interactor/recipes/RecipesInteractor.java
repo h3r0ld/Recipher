@@ -36,10 +36,11 @@ public class RecipesInteractor {
     }
 
     public void getRecipes(String recipeFilter) {
-        Call<SearchResponse> searchResponseCall = recipeApi.searchRecipes(recipeFilter, "", 1);
-
         GetRecipesEvent event = new GetRecipesEvent();
+
         try {
+            Call<SearchResponse> searchResponseCall = recipeApi.searchRecipes(recipeFilter, "", 1);
+
             Response<SearchResponse> searchResponse = searchResponseCall.execute();
 
             if (searchResponse.code() != 200) {
@@ -62,10 +63,10 @@ public class RecipesInteractor {
     }
 
     public  void getRecipeDetails(Recipe recipe) {
-        Call<GetResponse> recipeByIdCall = recipeApi.getRecipeById(recipe.getRecipeId());
-
         GetRecipeDetailsEvent event = new GetRecipeDetailsEvent();
+
         try {
+            Call<GetResponse> recipeByIdCall = recipeApi.getRecipeById(recipe.getRecipeId());
             Response<GetResponse> recipeResponse = recipeByIdCall.execute();
 
             if (recipeResponse.code() != 200) {

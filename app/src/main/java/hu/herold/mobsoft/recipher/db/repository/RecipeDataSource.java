@@ -24,13 +24,13 @@ public class RecipeDataSource implements RecipeRepository {
     }
 
     @Override
-    public List<RecipeEntity> getRecipes(String filter) {
+    public List<RecipeEntity> getRecipes(String filter) throws Exception {
         filter = "%" + filter + "%";
         return recipeDao.getRecipes(filter);
     }
 
     @Override
-    public RecipeEntity getRecipeById(String id) {
+    public RecipeEntity getRecipeById(String id) throws Exception {
         return recipeDao.getRecipeById(id);
     }
 
@@ -40,7 +40,7 @@ public class RecipeDataSource implements RecipeRepository {
     }
 
     @Override
-    public void saveRecipe(Recipe recipe) {
+    public void saveRecipe(Recipe recipe) throws Exception {
         RecipeEntity recipeEntity = getRecipeById(recipe.getRecipeId());
 
         if (recipeEntity != null) {
