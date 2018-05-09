@@ -1,10 +1,9 @@
-package hu.herold.mobsoft.recipher.network.mock;
+package hu.herold.mobsoft.recipher.network;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import hu.herold.mobsoft.recipher.network.ApiClient;
 import hu.herold.mobsoft.recipher.network.api.RecipeApi;
 
 /**
@@ -13,6 +12,12 @@ import hu.herold.mobsoft.recipher.network.api.RecipeApi;
 
 @Module
 public class MockNetworkModule {
+
+    @Provides
+    @Singleton
+    public ApiClient provideApiClient() {
+        return new ApiClient("");
+    }
 
     @Provides
     @Singleton

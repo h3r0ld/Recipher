@@ -1,31 +1,34 @@
-package hu.herold.mobsoft.recipher.ui;
+package hu.herold.mobsoft.recipher;
 
 import android.content.Context;
 
+import org.apache.tools.ant.taskdefs.Exec;
+
 import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import hu.herold.mobsoft.recipher.ui.UIModule;
 import hu.herold.mobsoft.recipher.ui.about.AboutPresenter;
 import hu.herold.mobsoft.recipher.ui.favourites.FavouritesPresenter;
 import hu.herold.mobsoft.recipher.ui.favourites.details.FavouriteDetailsPresenter;
-import hu.herold.mobsoft.recipher.ui.favourites.details.FavouriteDetailsScreen;
 import hu.herold.mobsoft.recipher.ui.main.MainPresenter;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesPresenter;
 import hu.herold.mobsoft.recipher.ui.recipes.details.RecipeDetailsPresenter;
+import hu.herold.mobsoft.recipher.utils.UIExecutor;
 
 /**
- * Created by herold on 2018. 03. 23..
+ * Created by herold on 2018. 05. 09..
  */
 
 @Module
-public class UIModule {
+public class TestModule {
+
     private Context context;
 
-    public UIModule(Context context) {
+    public TestModule(Context context) {
         this.context = context;
     }
 
@@ -60,8 +63,7 @@ public class UIModule {
 
     @Provides
     @Singleton
-    public AboutPresenter provideAboutPresenter()
-    {
+    public AboutPresenter provideAboutPresenter() {
         return new AboutPresenter();
     }
 
@@ -74,6 +76,6 @@ public class UIModule {
     @Provides
     @Singleton
     public Executor provideExecutor() {
-        return Executors.newFixedThreadPool(1);
+        return new UIExecutor();
     }
 }
