@@ -20,6 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
+import hu.herold.mobsoft.recipher.ui.favourites.details.FavouriteDetailsActivity;
+import hu.herold.mobsoft.recipher.ui.recipes.details.RecipeDetailsActivity;
 
 /**
  * Created by herold on 2018. 05. 06..
@@ -111,7 +113,14 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 //                    fmTransaction.replace(R.id.recipesFrameLayout, fragment);
 //                    fmTransaction.addToBackStack(null);
 //                    fmTransaction.commit();
-                    Intent intent = new Intent(context, recipesAdapterOptions.getTargetNavigationClass());
+
+                    Intent intent = new Intent();
+                    if (recipe.getFavourite() == null || recipe.getFavourite()) {
+                        intent = new Intent(context, FavouriteDetailsActivity.class);
+                    } else {
+                        intent = new Intent(context, RecipeDetailsActivity.class);
+                    }
+                    //Intent intent = new Intent(context, recipesAdapterOptions.getTargetNavigationClass());
                     intent.putExtra(RECIPE, (new Gson()).toJson(recipe));
 
                     context.startActivity(intent);
