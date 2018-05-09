@@ -143,7 +143,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
 //        AlertDialog alertDialog = alertDialogBuilder.create();
 //        alertDialog.setView(input);
 //        alertDialog.show();
-
+        recipe.setTitle(titleEditText.getText().toString());
+        recipe.setDescription(descriptionEditText.getText().toString());
         recipeDetailsPresenter.saveFavouriteRecipe(recipe);
     }
 
