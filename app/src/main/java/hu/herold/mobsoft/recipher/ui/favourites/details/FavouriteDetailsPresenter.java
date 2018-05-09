@@ -4,6 +4,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 import javax.inject.Inject;
 
 import hu.herold.mobsoft.recipher.RecipherApplication;
@@ -23,6 +26,9 @@ public class FavouriteDetailsPresenter extends Presenter<FavouriteDetailsScreen>
     @Inject
     FavouritesInteractor favouritesInteractor;
 
+    @Inject
+    Executor executor;
+
     public FavouriteDetailsPresenter() {
         RecipherApplication.injector.inject(this);
     }
@@ -40,30 +46,30 @@ public class FavouriteDetailsPresenter extends Presenter<FavouriteDetailsScreen>
     }
 
     public void getRecipeDetails(final Recipe recipe) {
-        new Thread(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 favouritesInteractor.getFavouriteRecipeById(recipe.getRecipeId());
             }
-        }).start();
+        });
     }
 
     public void saveRecipe(final Recipe recipe) {
-        new Thread(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 favouritesInteractor.saveFavouriteRecipe(recipe);
             }
-        }).start();
+        });
     }
 
     public void deleteRecipe(final String id) {
-        new Thread(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 favouritesInteractor.deleteFavoriteRecipe(id);
             }
-        }).start();
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

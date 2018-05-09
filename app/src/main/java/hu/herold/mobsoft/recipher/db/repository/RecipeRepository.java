@@ -11,13 +11,13 @@ import hu.herold.mobsoft.recipher.network.model.Recipe;
 
 public interface RecipeRepository {
 
-    List<RecipeEntity> getRecipes(String filter);
+    List<RecipeEntity> getRecipes(String filter) throws Exception;
 
     List<String> getRecipeIds();
 
-    RecipeEntity getRecipeById(String id);
+    RecipeEntity getRecipeById(String id) throws Exception;
 
-    void saveRecipe(Recipe recipe);
+    void saveRecipe(Recipe recipe) throws Exception;
 
     void deleteRecipe(RecipeEntity recipeEntity);
 

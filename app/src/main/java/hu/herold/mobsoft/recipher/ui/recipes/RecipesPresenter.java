@@ -23,6 +23,9 @@ public class RecipesPresenter extends Presenter<RecipesScreen> {
     @Inject
     RecipesInteractor recipesInteractor;
 
+    @Inject
+    Executor executor;
+
     public RecipesPresenter() {
         RecipherApplication.injector.inject(this);
     }
@@ -40,12 +43,12 @@ public class RecipesPresenter extends Presenter<RecipesScreen> {
     }
 
     public void refreshRecipes(final String recipeFilter) {
-        new Thread(new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
                 recipesInteractor.getRecipes(recipeFilter);
             }
-        }).start();
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

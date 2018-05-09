@@ -17,7 +17,7 @@ public interface RecipeApi {
   @GET("get")
   Call<GetResponse> getRecipeById(
           @Query("rId") String rId
-  );
+  ) throws Exception;
 
   
   /**
@@ -32,7 +32,7 @@ public interface RecipeApi {
   @GET("search")
   Call<SearchResponse> searchRecipes(
           @Query("q") String q, @Query("sort") String sort, @Query("page") Integer page
-  );
+  ) throws Exception;
 
   
 }

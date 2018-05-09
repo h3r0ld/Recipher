@@ -1,4 +1,4 @@
-package hu.herold.mobsoft.recipher;
+package hu.herold.mobsoft.recipher.mock;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
