@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import javax.inject.Inject;
 
 import hu.herold.mobsoft.recipher.R;
@@ -21,6 +24,9 @@ public class AboutFragment extends Fragment implements AboutScreen, ViewPagerFra
 
     @Inject
     AboutPresenter aboutPresenter;
+
+    @Inject
+    Tracker tracker;
 
     public AboutFragment() {
         RecipherApplication.injector.inject(this);
@@ -52,7 +58,15 @@ public class AboutFragment extends Fragment implements AboutScreen, ViewPagerFra
 
     @Override
     public void onSwitchedTo() {
+        tracker.setScreenName(AboutScreen.class.toString());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        tracker.setScreenName(AboutScreen.class.toString());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     public void forceCrash(View view) {

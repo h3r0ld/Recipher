@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
+
 import hu.herold.mobsoft.recipher.db.DbModule;
 import hu.herold.mobsoft.recipher.ui.UIModule;
 import io.fabric.sdk.android.Fabric;

@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ import butterknife.OnClick;
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
+import hu.herold.mobsoft.recipher.ui.about.AboutScreen;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesAdapter;
 import hu.herold.mobsoft.recipher.ui.recipes.details.IngredientsAdapter;
 
@@ -37,6 +40,9 @@ public class FavouriteDetailsActivity extends AppCompatActivity implements Favou
 
     @Inject
     FavouriteDetailsPresenter favouriteDetailsPresenter;
+
+    @Inject
+    Tracker tracker;
 
     @BindView(R.id.pictImageView)
     ImageView pictImageView;
@@ -101,6 +107,9 @@ public class FavouriteDetailsActivity extends AppCompatActivity implements Favou
     @Override
     protected void onResume() {
         super.onResume();
+
+        tracker.setScreenName(FavouriteDetailsScreen.class.toString());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         setVisibility(false, false, true);
 
