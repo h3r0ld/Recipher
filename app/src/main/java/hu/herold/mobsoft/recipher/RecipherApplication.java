@@ -1,6 +1,7 @@
 package hu.herold.mobsoft.recipher;
 
 import android.app.Application;
+import android.content.Context;
 
 import hu.herold.mobsoft.recipher.db.DbModule;
 import hu.herold.mobsoft.recipher.ui.UIModule;
@@ -22,5 +23,4 @@ public class RecipherApplication extends Application {
                 .dbModule(new DbModule(this))
                 .build();
     }
-
 }
