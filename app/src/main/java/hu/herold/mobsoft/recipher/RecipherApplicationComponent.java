@@ -8,6 +8,7 @@ import hu.herold.mobsoft.recipher.interactor.InteractorModule;
 import hu.herold.mobsoft.recipher.interactor.favourites.FavouritesInteractor;
 import hu.herold.mobsoft.recipher.interactor.recipes.RecipesInteractor;
 import hu.herold.mobsoft.recipher.network.NetworkModule;
+import hu.herold.mobsoft.recipher.network.mock.MockRecipeApi;
 import hu.herold.mobsoft.recipher.ui.UIModule;
 import hu.herold.mobsoft.recipher.ui.about.AboutFragment;
 import hu.herold.mobsoft.recipher.ui.favourites.FavouritesFragment;
@@ -51,4 +52,6 @@ public interface RecipherApplicationComponent {
     void inject(FavouriteDetailsPresenter favouriteDetailsPresenter);
 
     void inject(FavouriteDetailsActivity favouriteDetailsActivity);
+
+    void inject(MockRecipeApi mockRecipeApi);
 }
