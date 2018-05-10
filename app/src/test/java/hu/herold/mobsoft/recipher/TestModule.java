@@ -2,6 +2,9 @@ package hu.herold.mobsoft.recipher;
 
 import android.content.Context;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
+
 import org.apache.tools.ant.taskdefs.Exec;
 
 import java.util.concurrent.Executor;
@@ -19,6 +22,8 @@ import hu.herold.mobsoft.recipher.ui.recipes.RecipesPresenter;
 import hu.herold.mobsoft.recipher.ui.recipes.details.RecipeDetailsPresenter;
 import hu.herold.mobsoft.recipher.utils.UIExecutor;
 
+import static org.mockito.Mockito.mock;
+
 /**
  * Created by herold on 2018. 05. 09..
  */
@@ -35,6 +40,18 @@ public class TestModule {
     @Provides
     public Context provideContext() {
         return context;
+    }
+
+    @Provides
+    @Singleton
+    public GoogleAnalytics provideGoogleAnalytics(Context context) {
+        return mock(GoogleAnalytics.class);
+    }
+
+    @Provides
+    @Singleton
+    public Tracker provideTracker(GoogleAnalytics googleAnalytics) {
+        return mock(Tracker.class);
     }
 
     @Provides
