@@ -14,6 +14,9 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +29,7 @@ import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
 import hu.herold.mobsoft.recipher.ui.ViewPagerFragment;
+import hu.herold.mobsoft.recipher.ui.about.AboutScreen;
 import hu.herold.mobsoft.recipher.ui.favourites.details.FavouriteDetailsActivity;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesAdapter;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesAdapterOptions;
@@ -37,6 +41,9 @@ public class FavouritesFragment extends Fragment implements FavouritesScreen, Vi
 
     @Inject
     FavouritesPresenter favouritesPresenter;
+
+    @Inject
+    Tracker tracker;
 
     @BindView(R.id.favouritesRecyclerView)
     RecyclerView favouritesRecyclerView;
@@ -122,6 +129,9 @@ public class FavouritesFragment extends Fragment implements FavouritesScreen, Vi
     @Override
     public void onResume() {
         super.onResume();
+        tracker.setScreenName(FavouritesScreen.class.toString());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
         titleFilter = searchView.getQuery().toString();
         favouritesPresenter.refreshFavouriteRecipes(titleFilter, ingredientsFilter);
     }
@@ -161,6 +171,9 @@ public class FavouritesFragment extends Fragment implements FavouritesScreen, Vi
 
     @Override
     public void onSwitchedTo() {
+        tracker.setScreenName(AboutScreen.class.toString());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
         titleFilter = searchView.getQuery().toString();
         favouritesPresenter.refreshFavouriteRecipes(titleFilter, ingredientsFilter);
     }
