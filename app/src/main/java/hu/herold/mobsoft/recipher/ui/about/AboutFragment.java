@@ -54,4 +54,9 @@ public class AboutFragment extends Fragment implements AboutScreen, ViewPagerFra
     public void onSwitchedTo() {
 
     }
+
+    public void forceCrash(View view) {
+        throw new RuntimeException("This is a crash");
+    }
+
 }

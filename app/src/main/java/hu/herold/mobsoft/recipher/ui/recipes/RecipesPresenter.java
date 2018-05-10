@@ -1,5 +1,8 @@
 package hu.herold.mobsoft.recipher.ui.recipes;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -47,6 +50,8 @@ public class RecipesPresenter extends Presenter<RecipesScreen> {
             @Override
             public void run() {
                 recipesInteractor.getRecipes(recipeFilter);
+                Answers.getInstance().logCustom(new CustomEvent("recipeSearchedEvent")
+                        .putCustomAttribute("filter", recipeFilter));
             }
         });
     }
