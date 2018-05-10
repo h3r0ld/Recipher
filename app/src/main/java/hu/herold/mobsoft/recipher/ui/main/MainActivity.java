@@ -7,6 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +21,7 @@ import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.ui.ViewPagerFragment;
 import hu.herold.mobsoft.recipher.ui.about.AboutFragment;
+import hu.herold.mobsoft.recipher.ui.about.AboutScreen;
 import hu.herold.mobsoft.recipher.ui.favourites.FavouritesFragment;
 import hu.herold.mobsoft.recipher.ui.main.adapter.MainPagerAdapter;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesFragment;
@@ -26,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
 
     @Inject
     MainPresenter mainPresenter;
+
+    @Inject
+    Tracker tracker;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -87,6 +94,13 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
     protected void onStop() {
         super.onStop();
         mainPresenter.detachScreen();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tracker.setScreenName(MainScreen.class.toString());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

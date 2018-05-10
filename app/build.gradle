@@ -107,4 +107,8 @@ dependencies {
     compile('com.crashlytics.sdk.android:answers:1.4.1@aar') {
         transitive = true;
     }
+
+    // Google Analytics
+    compile 'com.google.android.gms:play-services-analytics:10.2.4'
+
 }

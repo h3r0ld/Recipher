@@ -19,6 +19,8 @@ import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -32,12 +34,16 @@ import butterknife.OnClick;
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
+import hu.herold.mobsoft.recipher.ui.about.AboutScreen;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesAdapter;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDetailsScreen {
 
     @Inject
     RecipeDetailsPresenter recipeDetailsPresenter;
+
+    @Inject
+    Tracker tracker;
 
     @BindView(R.id.pictImageView)
     ImageView pictImageView;
@@ -104,6 +110,10 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
     @Override
     public void onResume() {
         super.onResume();
+
+        tracker.setScreenName(RecipeDetailsScreen.class.toString());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
         setVisibility(false, false, true);
 
         Intent intent = getIntent();

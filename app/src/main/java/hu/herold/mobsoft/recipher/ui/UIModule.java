@@ -2,6 +2,9 @@ package hu.herold.mobsoft.recipher.ui;
 
 import android.content.Context;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -9,6 +12,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.ui.about.AboutPresenter;
 import hu.herold.mobsoft.recipher.ui.favourites.FavouritesPresenter;
 import hu.herold.mobsoft.recipher.ui.favourites.details.FavouriteDetailsPresenter;
@@ -32,6 +36,18 @@ public class UIModule {
     @Provides
     public Context provideContext() {
         return context;
+    }
+
+    @Provides
+    @Singleton
+    public GoogleAnalytics provideGoogleAnalytics(Context context) {
+        return GoogleAnalytics.getInstance(context);
+    }
+
+    @Provides
+    @Singleton
+    public Tracker provideTracker(GoogleAnalytics googleAnalytics) {
+        return  googleAnalytics.newTracker(R.xml.global_tracker);
     }
 
     @Provides
