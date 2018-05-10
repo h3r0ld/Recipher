@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.gson.Gson;
@@ -146,6 +148,12 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
         recipe.setTitle(titleEditText.getText().toString());
         recipe.setDescription(descriptionEditText.getText().toString());
         recipeDetailsPresenter.saveFavouriteRecipe(recipe);
+
+        Answers.getInstance().logCustom(new CustomEvent("recipeFavouriteEvent")
+                .putCustomAttribute("recipeId", recipe.getRecipeId())
+                .putCustomAttribute("title", recipe.getTitle())
+                .putCustomAttribute("image", recipe.getImageUrl())
+                .putCustomAttribute("description", recipe.getDescription()));
     }
 
     @OnClick(R.id.fabDelete)
