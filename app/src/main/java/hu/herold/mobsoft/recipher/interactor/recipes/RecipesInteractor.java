@@ -3,10 +3,12 @@ package hu.herold.mobsoft.recipher.interactor.recipes;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import hu.herold.mobsoft.recipher.RecipherApplication;
+import hu.herold.mobsoft.recipher.db.entity.RecipeEntity;
 import hu.herold.mobsoft.recipher.interactor.recipes.event.DeleteRecipeEvent;
 import hu.herold.mobsoft.recipher.interactor.recipes.event.GetRecipeDetailsEvent;
 import hu.herold.mobsoft.recipher.interactor.recipes.event.GetRecipesEvent;
@@ -47,10 +49,15 @@ public class RecipesInteractor {
                 throw new Exception("Result code is not 200:  " + searchResponse.code());
             }
 
-            List<String> recipeIds = recipeRepository.getRecipeIds();
+            Map<String, Boolean> recipeIds = recipeRepository.getRecipeIds();
 
             for (Recipe recipe : searchResponse.body().getRecipes()) {
-                recipe.setFavourite(recipeIds.contains(recipe.getRecipeId()));
+
+                recipe.setFavourite(recipeIds.containsKey(recipe.getRecipeId()));
+
+                if (recipe.getFavourite()) {
+                    recipe.setIsProtected(recipeIds.get(recipe.getRecipeId()));
+                }
             }
 
             event.setCode(searchResponse.code());
@@ -84,12 +91,12 @@ public class RecipesInteractor {
         }
     }
 
-    public void saveRecipe(Recipe recipe) {
+    public void saveRecipe(Recipe recipe, String password) {
 
         SaveRecipeEvent event = new SaveRecipeEvent();
 
         try {
-            recipeRepository.saveRecipe(recipe);
+            recipeRepository.saveRecipe(recipe, password);
         } catch (Exception e) {
             event.setThrowable(e);
         } finally {

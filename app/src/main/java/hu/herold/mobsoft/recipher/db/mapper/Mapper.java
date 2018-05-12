@@ -22,6 +22,7 @@ public class Mapper {
         recipeEntity.setSocialRank(recipe.getSocialRank());
         recipeEntity.setSourceUrl(recipe.getSourceUrl());
         recipeEntity.setTitle(recipe.getTitle());
+        recipeEntity.setProtected(recipe.getIsProtected());
 
         return recipeEntity;
     }
@@ -39,6 +40,8 @@ public class Mapper {
         recipe.setSocialRank(recipeEntity.getSocialRank());
         recipe.setSourceUrl(recipeEntity.getSourceUrl());
         recipe.setTitle(recipeEntity.getTitle());
+        recipe.setIsProtected(recipeEntity.isProtected());
+        recipe.setFavourite(true);
 
         return recipe;
     }

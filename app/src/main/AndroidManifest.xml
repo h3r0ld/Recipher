@@ -22,11 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.recipes.details.RecipeDetailsActivity" android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ui.favourites.details.FavouriteDetailsActivity" android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".ui.recipes.details.RecipeDetailsActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.favourites.details.FavouriteDetailsActivity"
+            android:windowSoftInputMode="adjustPan" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="76113dbf45295f956fc5ee6e2b5f89598c3aab92" />
+
+        <activity android:name=".ui.favourites.password.PasswordProtectedActivity"></activity>
     </application>
 
 </manifest>

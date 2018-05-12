@@ -33,6 +33,16 @@
             fab:fab_label="@string/SaveChanges"/>
 
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabAddPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_lock_white_18dp"
+            fab:fab_colorNormal="@color/primary"
+            fab:fab_colorPressed="@color/primary_dark"
+            fab:fab_size="mini"
+            fab:fab_label="@string/LockWithPassword"/>
+
+        <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fabDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

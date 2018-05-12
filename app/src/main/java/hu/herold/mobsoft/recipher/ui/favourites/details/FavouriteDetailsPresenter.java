@@ -58,7 +58,7 @@ public class FavouriteDetailsPresenter extends Presenter<FavouriteDetailsScreen>
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                favouritesInteractor.saveFavouriteRecipe(recipe);
+                favouritesInteractor.saveFavouriteRecipe(recipe, null);
             }
         });
     }
@@ -68,6 +68,15 @@ public class FavouriteDetailsPresenter extends Presenter<FavouriteDetailsScreen>
             @Override
             public void run() {
                 favouritesInteractor.deleteFavoriteRecipe(id);
+            }
+        });
+    }
+
+    public void lockRecipeWithPassord(final Recipe recipe, final String password) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                favouritesInteractor.saveFavouriteRecipe(recipe, password);
             }
         });
     }
@@ -116,4 +125,5 @@ public class FavouriteDetailsPresenter extends Presenter<FavouriteDetailsScreen>
             }
         }
     }
+
 }
