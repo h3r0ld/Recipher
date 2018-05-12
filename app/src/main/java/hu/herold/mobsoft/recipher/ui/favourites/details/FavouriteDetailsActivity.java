@@ -186,6 +186,7 @@ public class FavouriteDetailsActivity extends AppCompatActivity implements Favou
 
     @OnClick(R.id.fabSave)
     public void onSaveClicked() {
+        recipe.setTitle(titleEditText.getText().toString());
         recipe.setDescription(descriptionEditText.getText().toString());
         favouriteDetailsPresenter.saveRecipe(recipe);
     }
