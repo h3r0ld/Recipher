@@ -13,7 +13,7 @@
     <string name="noData">No recipes found.</string>
     <string name="socialScore">Social rank:</string>
     <string name="AddToFavourites">Add to favourites</string>
-    <string name="encryptionTitle">Encryption</string>
+    <string name="encryptionTitle">Protect with password</string>
     <string name="encryptionText">If you want to protect this recipe with a password, write below. If no, then just leave it empty.</string>
     <string name="save">Save</string>
     <string name="exit">Cancel</string>
@@ -22,4 +22,9 @@
     <string name="descriptionHint">No description is available. Fill it, then add the recipe to your favourites to keep the changes!</string>
     <string name="recipeSearchHint">Search recipes...</string>
     <string name="favoruiteSearchHint">Search favourite recipes...</string>
+    <string name="passwordHint">Password...</string>
+    <string name="unlock">Unlock</string>
+    <string name="passwordInformation">This recipe is password protected, to see its details, enter the password below.</string>
+    <string name="valiationFailedTitle">Looks like something is not okay..</string>
+    <string name="LockWithPassword">Add password protection</string>
 </resources>

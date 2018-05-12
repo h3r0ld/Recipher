@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
 import hu.herold.mobsoft.recipher.ui.favourites.details.FavouriteDetailsActivity;
+import hu.herold.mobsoft.recipher.ui.favourites.password.PasswordProtectedActivity;
 import hu.herold.mobsoft.recipher.ui.recipes.details.RecipeDetailsActivity;
 
 /**
@@ -104,22 +105,20 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
             cardRecipe.setOnClickListener(new CardView.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString(RECIPE_ID, recipe.getRecipeId());
-//                    Fragment fragment = new RecipeDetailsFragment();
-//                    fragment.setArguments(bundle);
-//                    FragmentTransaction fmTransaction = fm.beginTransaction();
-//                    fmTransaction.replace(R.id.recipesFrameLayout, fragment);
-//                    fmTransaction.addToBackStack(null);
-//                    fmTransaction.commit();
+                    Intent intent;
 
-                    Intent intent = new Intent();
                     if (recipe.getFavourite() == null || recipe.getFavourite()) {
-                        intent = new Intent(context, FavouriteDetailsActivity.class);
+
+                        if (recipe.getIsProtected() != null && recipe.getIsProtected()) {
+                            intent = new Intent(context, PasswordProtectedActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        } else {
+                            intent = new Intent(context, FavouriteDetailsActivity.class);
+                        }
                     } else {
                         intent = new Intent(context, RecipeDetailsActivity.class);
                     }
+
                     //Intent intent = new Intent(context, recipesAdapterOptions.getTargetNavigationClass());
                     intent.putExtra(RECIPE, (new Gson()).toJson(recipe));
 

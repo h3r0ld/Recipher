@@ -19,11 +19,12 @@ import hu.herold.mobsoft.recipher.db.entity.RecipeEntity;
 public interface RecipeDao {
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    @Query("SELECT recipeId, title, imageUrl, socialRank, isEncrypted FROM RECIPES WHERE title LIKE :query")
+    @Query("SELECT recipeId, title, imageUrl, socialRank, isProtected FROM RECIPES WHERE title LIKE :query")
     List<RecipeEntity> getRecipes(String query) throws Exception;
 
-    @Query("SELECT recipeId FROM RECIPES")
-    List<String> getRecipeIds();
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT recipeId, isProtected FROM RECIPES")
+    List<RecipeEntity> getRecipeIds();
 
     @Query("SELECT * FROM recipes WHERE :recipeId = recipeId")
     RecipeEntity getRecipeById(String recipeId) throws Exception;

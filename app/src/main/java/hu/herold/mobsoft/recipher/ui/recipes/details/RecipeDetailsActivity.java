@@ -1,11 +1,15 @@
 package hu.herold.mobsoft.recipher.ui.recipes.details;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -130,40 +134,47 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
 
     @OnClick(R.id.fabSave)
     public void onSaveClicked() {
-//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-//
-//        final EditText input = new EditText(this);
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                LinearLayout.LayoutParams.MATCH_PARENT);
-//        input.setLayoutParams(lp);
-//
-//        alertDialogBuilder.setTitle(R.string.encryptionTitle);
-//        alertDialogBuilder
-//                .setMessage(R.string.encryptionText)
-//                .setCancelable(false)
-//                .setNegativeButton(R.string.exit, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        ((RecipeDetailsActivity) getApplicationContext()).finish();
-//                    }
-//                })
-//                .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        dialog.cancel();
-//                    }
-//                });
-//        AlertDialog alertDialog = alertDialogBuilder.create();
-//        alertDialog.setView(input);
-//        alertDialog.show();
-        recipe.setTitle(titleEditText.getText().toString());
-        recipe.setDescription(descriptionEditText.getText().toString());
-        recipeDetailsPresenter.saveFavouriteRecipe(recipe);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-        Answers.getInstance().logCustom(new CustomEvent("recipeFavouriteEvent")
-                .putCustomAttribute("recipeId", recipe.getRecipeId())
-                .putCustomAttribute("title", recipe.getTitle())
-                .putCustomAttribute("image", recipe.getImageUrl())
-                .putCustomAttribute("description", recipe.getDescription()));
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        input.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+
+        alertDialogBuilder.setTitle(R.string.encryptionTitle);
+        alertDialogBuilder
+                .setMessage(R.string.encryptionText)
+                .setCancelable(false)
+                .setNegativeButton(R.string.exit, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //((RecipeDetailsActivity) getApplicationContext()).finish();
+                        dialog.cancel();
+                    }
+                })
+                .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String password = input.getText().toString();
+
+                        recipe.setTitle(titleEditText.getText().toString());
+                        recipe.setDescription(descriptionEditText.getText().toString());
+                        recipe.setIsProtected(!"".equals(password));
+                        recipeDetailsPresenter.saveFavouriteRecipe(recipe, password);
+
+                        Answers.getInstance().logCustom(new CustomEvent("recipeFavouriteEvent")
+                                .putCustomAttribute("recipeId", recipe.getRecipeId())
+                                .putCustomAttribute("title", recipe.getTitle())
+                                .putCustomAttribute("image", recipe.getImageUrl())
+                                .putCustomAttribute("description", recipe.getDescription()));
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.setView(input);
+        alertDialog.show();
     }
 
     @OnClick(R.id.fabDelete)
@@ -196,7 +207,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
                 .setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        recipeDetailsPresenter.saveFavouriteRecipe(recipe);
+                        onSaveClicked();
                     }
                 }).show();
     }

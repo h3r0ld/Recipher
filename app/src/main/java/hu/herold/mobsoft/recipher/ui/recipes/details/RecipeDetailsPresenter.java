@@ -4,6 +4,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
@@ -55,11 +56,11 @@ public class RecipeDetailsPresenter extends Presenter<RecipeDetailsScreen> {
         });
     }
 
-    public void saveFavouriteRecipe(final Recipe recipe) {
+    public void saveFavouriteRecipe(final Recipe recipe, final String password) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                recipeInteractor.saveRecipe(recipe);
+                recipeInteractor.saveRecipe(recipe, password);
             }
         });
     }
@@ -95,6 +96,7 @@ public class RecipeDetailsPresenter extends Presenter<RecipeDetailsScreen> {
 
             if (screen != null) {
                 screen.showMessage(event.getThrowable().getMessage());
+
             }
         } else {
             if (screen != null) {
