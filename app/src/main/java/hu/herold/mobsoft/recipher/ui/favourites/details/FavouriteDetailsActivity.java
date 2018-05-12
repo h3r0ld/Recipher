@@ -1,11 +1,15 @@
 package hu.herold.mobsoft.recipher.ui.favourites.details;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.analytics.HitBuilders;
@@ -32,7 +38,6 @@ import butterknife.OnClick;
 import hu.herold.mobsoft.recipher.R;
 import hu.herold.mobsoft.recipher.RecipherApplication;
 import hu.herold.mobsoft.recipher.network.model.Recipe;
-import hu.herold.mobsoft.recipher.ui.about.AboutScreen;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesAdapter;
 import hu.herold.mobsoft.recipher.ui.recipes.details.IngredientsAdapter;
 
@@ -66,6 +71,8 @@ public class FavouriteDetailsActivity extends AppCompatActivity implements Favou
     FloatingActionMenu fabActionMenu;
     @BindView(R.id.titleEditText)
     EditText titleEditText;
+    @BindView(R.id.fabAddPassword)
+    FloatingActionButton fabAddPassword;
 
     private Recipe recipe;
     private List<String> ingredients;
@@ -144,7 +151,14 @@ public class FavouriteDetailsActivity extends AppCompatActivity implements Favou
     public void savedRecipe() {
         fabActionMenu.close(true);
 
-        Snackbar.make(fabActionMenu, "Saved Changes.", Snackbar.LENGTH_LONG)
+        String message = "Saved Changes.";
+        if (recipe.getIsProtected() != null && recipe.getIsProtected()) {
+            message += "Password Protected.";
+            fabAddPassword.setLabelText("Protected with password.");
+            fabAddPassword.setEnabled(false);
+        }
+
+        Snackbar.make(fabActionMenu, message, Snackbar.LENGTH_LONG)
                 .show();
     }
 
@@ -176,6 +190,11 @@ public class FavouriteDetailsActivity extends AppCompatActivity implements Favou
         }
         descriptionEditText.setText(recipe.getDescription());
 
+        if (recipe.getIsProtected() != null && recipe.getIsProtected()) {
+            fabAddPassword.setLabelText("Protected with password.");
+            fabAddPassword.setEnabled(false);
+        }
+
         setVisibility(true, true, false);
     }
 
@@ -197,4 +216,40 @@ public class FavouriteDetailsActivity extends AppCompatActivity implements Favou
         progressBar.setVisibility(progressBarVisible ? View.VISIBLE : View.GONE);
     }
 
+    @OnClick(R.id.fabAddPassword)
+    public void onViewClicked() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        input.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+
+        alertDialogBuilder.setTitle(R.string.encryptionTitle);
+        alertDialogBuilder
+                .setMessage(R.string.encryptionText)
+                .setCancelable(false)
+                .setNegativeButton(R.string.exit, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //((RecipeDetailsActivity) getApplicationContext()).finish();
+                        dialog.cancel();
+                    }
+                })
+                .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String password = input.getText().toString();
+
+                        recipe.setIsProtected(!"".equals(password));
+                        favouriteDetailsPresenter.lockRecipeWithPassord(recipe, password);
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.setView(input);
+        alertDialog.show();
+    }
 }

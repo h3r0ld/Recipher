@@ -49,6 +49,9 @@ public class Recipe   {
   
   @SerializedName("favourite")
   private Boolean favourite = null;
+
+  @SerializedName("isProtected")
+  private Boolean isProtected = null;
   
 
   
@@ -183,6 +186,13 @@ public class Recipe   {
     this.favourite = favourite;
   }
 
+  @ApiModelProperty(value = "Indicates whether this recipe is protected with a password, or not.")
+  public Boolean getIsProtected() {
+    return isProtected;
+  }
+  public void setIsProtected(Boolean isProtected) {
+    this.isProtected= isProtected;
+  }
   
 
   @Override
@@ -204,12 +214,13 @@ public class Recipe   {
         Objects.equals(socialRank, recipe.socialRank) &&
         Objects.equals(sourceUrl, recipe.sourceUrl) &&
         Objects.equals(title, recipe.title) &&
-        Objects.equals(favourite, recipe.favourite);
+        Objects.equals(favourite, recipe.favourite) &&
+            Objects.equals(isProtected, recipe.isProtected);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(recipeId, description, f2fUrl, imageUrl, ingredients, publisher, publisherUrl, socialRank, sourceUrl, title, favourite);
+    return Objects.hash(recipeId, description, f2fUrl, imageUrl, ingredients, publisher, publisherUrl, socialRank, sourceUrl, title, favourite, isProtected);
   }
 
   @Override
@@ -228,6 +239,7 @@ public class Recipe   {
     sb.append("    sourceUrl: ").append(toIndentedString(sourceUrl)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    favourite: ").append(toIndentedString(favourite)).append("\n");
+    sb.append("    isProtected: ").append(toIndentedString(isProtected)).append("\n");
     sb.append("}");
     return sb.toString();
   }

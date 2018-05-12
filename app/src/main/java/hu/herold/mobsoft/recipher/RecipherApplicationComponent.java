@@ -15,6 +15,8 @@ import hu.herold.mobsoft.recipher.ui.favourites.FavouritesFragment;
 import hu.herold.mobsoft.recipher.ui.favourites.FavouritesPresenter;
 import hu.herold.mobsoft.recipher.ui.favourites.details.FavouriteDetailsActivity;
 import hu.herold.mobsoft.recipher.ui.favourites.details.FavouriteDetailsPresenter;
+import hu.herold.mobsoft.recipher.ui.favourites.password.PasswordProtectedActivity;
+import hu.herold.mobsoft.recipher.ui.favourites.password.PasswordProtectedPresenter;
 import hu.herold.mobsoft.recipher.ui.main.MainActivity;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesFragment;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesPresenter;
@@ -54,4 +56,8 @@ public interface RecipherApplicationComponent {
     void inject(FavouriteDetailsActivity favouriteDetailsActivity);
 
     void inject(MockRecipeApi mockRecipeApi);
+
+    void inject(PasswordProtectedPresenter passwordProtectedPresenter);
+
+    void inject(PasswordProtectedActivity passwordProtectedActivity);
 }
