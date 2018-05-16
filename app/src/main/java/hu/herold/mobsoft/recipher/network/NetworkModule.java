@@ -23,7 +23,7 @@ public class NetworkModule {
     @Provides
     @Singleton
     public RecipeApi provideRecipeApi(ApiClient apiClient) {
-        //return apiClient.createService(RecipeApi.class);
-        return new MockRecipeApi();
+        return apiClient.createService(RecipeApi.class);
+        //return new MockRecipeApi();
     }
 }
