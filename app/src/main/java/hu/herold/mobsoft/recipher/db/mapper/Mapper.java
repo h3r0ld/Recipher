@@ -22,7 +22,7 @@ public class Mapper {
         recipeEntity.setSocialRank(recipe.getSocialRank());
         recipeEntity.setSourceUrl(recipe.getSourceUrl());
         recipeEntity.setTitle(recipe.getTitle());
-        recipeEntity.setProtected(recipe.getIsProtected());
+        recipeEntity.setProtected(recipe.getIsProtected() == null ? false : recipe.getIsProtected());
 
         return recipeEntity;
     }

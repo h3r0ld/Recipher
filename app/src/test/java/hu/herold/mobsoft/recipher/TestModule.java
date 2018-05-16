@@ -17,6 +17,7 @@ import hu.herold.mobsoft.recipher.ui.UIModule;
 import hu.herold.mobsoft.recipher.ui.about.AboutPresenter;
 import hu.herold.mobsoft.recipher.ui.favourites.FavouritesPresenter;
 import hu.herold.mobsoft.recipher.ui.favourites.details.FavouriteDetailsPresenter;
+import hu.herold.mobsoft.recipher.ui.favourites.password.PasswordProtectedPresenter;
 import hu.herold.mobsoft.recipher.ui.main.MainPresenter;
 import hu.herold.mobsoft.recipher.ui.recipes.RecipesPresenter;
 import hu.herold.mobsoft.recipher.ui.recipes.details.RecipeDetailsPresenter;
@@ -89,6 +90,12 @@ public class TestModule {
     public FavouriteDetailsPresenter provideFavouriteDetailsPresenter() {
         return new FavouriteDetailsPresenter();
     }
+
+    @Provides
+    @Singleton
+    public PasswordProtectedPresenter providePasswordProtectedPresenter() {
+        return new PasswordProtectedPresenter();
+    };
 
     @Provides
     @Singleton

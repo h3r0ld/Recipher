@@ -10,6 +10,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import hu.herold.mobsoft.recipher.db.dao.PasswordDao;
 import hu.herold.mobsoft.recipher.db.dao.RecipeDao;
 import hu.herold.mobsoft.recipher.db.repository.RecipeDataSource;
 import hu.herold.mobsoft.recipher.db.repository.RecipeRepository;
@@ -35,6 +36,9 @@ public class MockDbModule {
             }
 
             @Override
+            public PasswordDao passwordDao() { return null; }
+
+            @Override
             protected SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration config) {
                 return null;
             }
@@ -54,7 +58,13 @@ public class MockDbModule {
 
     @Provides
     @Singleton
-    RecipeRepository provideRecipeRepository(RecipeDao recipeDao) {
-        return new RecipeDataSource(recipeDao);
+    PasswordDao providePasswordDao(AppDatabase appDatabase) {
+        return new MockPasswordDao();
+    }
+
+    @Provides
+    @Singleton
+    RecipeRepository provideRecipeRepository(RecipeDao recipeDao, PasswordDao passwordDao) {
+        return new RecipeDataSource(recipeDao, passwordDao);
     }
 }

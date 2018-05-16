@@ -31,8 +31,12 @@ public class MockRecipeDao implements RecipeDao {
     }
 
     @Override
-    public List<String> getRecipeIds() {
-        return Arrays.asList("1", "2", "3");
+    public List<RecipeEntity> getRecipeIds() {
+        return Arrays.asList(
+                createRecipe("1", "Favourite1", "image.com/img1", "Publisher1", 100.0, "1 potato", "2 tomatoes", "3 kg meat", "salt"),
+                createRecipe("2", "Favourite2", "image.com/img2", "Publisher2", 99.0, "2 potato", "3 tomatoes", "4 kg meat", "salt"),
+                createRecipe("3", "Favourite3", "image.com/img3", "Publisher3", 98.0, "3 potato", "4 tomatoes", "5 kg meat", "salt")
+        );
     }
 
     @Override
