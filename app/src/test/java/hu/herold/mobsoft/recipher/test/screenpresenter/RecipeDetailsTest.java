@@ -72,7 +72,7 @@ public class RecipeDetailsTest {
         recipe = new Recipe();
         recipe.setRecipeId("1");
 
-        recipeDetailsPresenter.saveFavouriteRecipe(recipe);
+        recipeDetailsPresenter.saveFavouriteRecipe(recipe, null);
         verify(recipeDetailsScreen).savedRecipe();
     }
 
